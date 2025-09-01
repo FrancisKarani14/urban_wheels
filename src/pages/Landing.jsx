@@ -7,10 +7,11 @@ import Footer from '../components/Footer'
 
 function Landing() {
   return (
-    <div className=' '>
+    <div className=' mx-5'>
       < Navbar />
       <Hero />
       <Landing_Cars />
+      <Process />
       <Footer />
     </div>
   )
