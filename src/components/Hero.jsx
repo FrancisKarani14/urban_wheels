@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Testimonials() {
+function Hero() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Testimonials() {
   )
 }
 
-export default Testimonials
+export default Hero

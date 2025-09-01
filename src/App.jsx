@@ -1,12 +1,22 @@
 import { useState } from 'react'
+import Landing from './pages/Landing'
+import About from './pages/About'
+import Book from './pages/Book'
 
-import './App.css'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
   
 
   return (
     <>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/About' element={<About />} />
+        <Route path='/Book' element={<Book />} />
+
+
+      </Routes>
       
     </>
   )
