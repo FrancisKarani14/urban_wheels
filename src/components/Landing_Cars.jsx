@@ -5,7 +5,7 @@ function Landing_Cars() {
   const cars = [
     {
       image: "/images/bentley.jpg",
-      name:"Bentley Bentyaga",
+      name:"Bentley Bentayga",
       label: "Luxury"
       
     },
