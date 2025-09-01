@@ -2,30 +2,58 @@ import React from 'react'
 
 function About_us() {
   return (
-    <div className='bg-[#292524]'>
-         <section className="grid grid-cols-2 gap-6 items-center">
-  <img
-    src="https://media.istockphoto.com/id/1814511288/photo/happy-multiracial-couple-testing-new-car-in-showroom.jpg?s=612x612&w=0&k=20&c=NlVzdPK_Wts7fPerXPWtDxMhQlJaEZF-_fCJaWL0o5Y="
-    alt="transaction"
-    className="h-60 w-full object-cover rounded"
-  />  
+    <div className="bg-[#0A0A0A] px-8 py-16">
+      {/* First Section */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+        <img
+          src="https://media.istockphoto.com/id/2209179849/photo/volvo-v90.jpg?s=612x612&w=0&k=20&c=cSiEIWXxSrj0TSJmIf56rb8Srul56ruGzFW0JO3-6x0="
+          alt="volvo"
+          className="h-64 w-full object-cover rounded-2xl shadow-lg"
+        />  
 
-  <p className="text-white text-2xl font-bold">
-    We are committed to providing smooth, reliable, and professional car rental services.
-  </p>              
-</section>
+        <p className="text-[#31C950] text-3xl md:text-4xl font-extrabold leading-snug">
+          We are committed to providing smooth, reliable, and professional car rental services.
+        </p>              
+      </section>
 
-          <section className="grid grid-cols-2 gap-6 items-center">
-              <img
-                  
+      {/* Second Section */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="bg-[#171717] p-6 rounded-2xl shadow-lg">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Your trusted partner in reliable car rental
+          </h2>
 
-    src="https://media.istockphoto.com/id/1814511288/photo/happy-multiracial-couple-testing-new-car-in-showroom.jpg?s=612x612&w=0&k=20&c=NlVzdPK_Wts7fPerXPWtDxMhQlJaEZF-_fCJaWL0o5Y="
-    alt="transaction"
-    className="h-60 w-full object-cover rounded"
-  />  
+          <p className="text-lg text-[#FFD230] font-semibold mb-6">
+            We take pride in our fleet, customer service, and enabling:
+          </p>
 
-               
-</section>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold text-[#31C950] mb-1">
+                Easy booking process
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                At Urban Wheels, we make booking simple and hassle-free, so you’re on the road in minutes.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold text-[#31C950] mb-1">
+                Convenient Pick-up & Return
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                We’ve made car rentals stress-free with a pick-up and return process that saves you time, ensures flexibility, and makes your journey smoother from start to finish.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="https://media.istockphoto.com/id/1814511288/photo/happy-multiracial-couple-testing-new-car-in-showroom.jpg?s=612x612&w=0&k=20&c=NlVzdPK_Wts7fPerXPWtDxMhQlJaEZF-_fCJaWL0o5Y="
+          alt="transaction"
+          className="h-80 w-full object-cover rounded-2xl shadow-lg"
+        />  
+      </section>
     </div>
   )
 }

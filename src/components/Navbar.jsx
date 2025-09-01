@@ -10,8 +10,8 @@ function Navbar() {
         to="/" 
         className={({ isActive }) =>
           isActive 
-            ? "text-[#F8FAFC] font-semibold"   // active style
-            : "text-black hover:text-[#FFD230] font-semibold" // normal + hover style
+            ? "text-[#2B7FFF] font-semibold"   // active style
+            : "text-[#EEF2FF] hover:text-[#FFD230] font-semibold" // normal + hover style
         }
       >
         Home
@@ -21,8 +21,8 @@ function Navbar() {
         to="/about" 
         className={({ isActive }) =>
           isActive 
-            ? "text-[#F8FAFC] font-semibold" 
-            : "text-black hover:text-[#FFD230] font-semibold"
+            ? "text-[#2B7FFF] font-semibold" 
+            : "text-[#EEF2FF] hover:text-[#FFD230] font-semibold"
         }
       >
         About
@@ -32,8 +32,8 @@ function Navbar() {
         to="/book" 
         className={({ isActive }) =>
           isActive 
-            ? "text-[#F8FAFC] font-semibold" 
-            : "text-black hover:text-[#FFD230] font-semibold"
+            ? "text-[#2B7FFF] font-semibold" 
+            : "text-[#EEF2FF] hover:text-[#FFD230] font-semibold"
         }
       >
         Book Now
