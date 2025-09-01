@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   return (
-    <div className="flex justify-center items-center gap-7 p-4 ">
+    <div className="flex justify-center items-center gap-7 p-2 fixed top-0 left-1/2 transform -translate-x-1/2 bg-[#0c0a0925] rounded-2xl mt-5">
       <h1 className="font-bold text-xl text-[#05DF72]">Urban_<span className='text-[#FFDF20]'>Wheels</span></h1>
       <nav className="flex gap-8 text-[#F8FAFC] ">
         <NavLink 
@@ -11,7 +11,7 @@ function Navbar() {
         className={({ isActive }) =>
           isActive 
             ? "text-[#F8FAFC] font-semibold"   // active style
-            : "text-black hover:text-[#FFD230]" // normal + hover style
+            : "text-black hover:text-[#FFD230] font-semibold" // normal + hover style
         }
       >
         Home
@@ -22,7 +22,7 @@ function Navbar() {
         className={({ isActive }) =>
           isActive 
             ? "text-[#F8FAFC] font-semibold" 
-            : "text-black hover:text-[#FFD230]"
+            : "text-black hover:text-[#FFD230] font-semibold"
         }
       >
         About
@@ -33,7 +33,7 @@ function Navbar() {
         className={({ isActive }) =>
           isActive 
             ? "text-[#F8FAFC] font-semibold" 
-            : "text-black hover:text-[#FFD230]"
+            : "text-black hover:text-[#FFD230] font-semibold"
         }
       >
         Book Now

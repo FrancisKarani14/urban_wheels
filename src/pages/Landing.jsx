@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 
 function Landing() {
   return (
-    <div className=' mx-5'>
+    <div className='  mx-5'>
       < Navbar />
       <Hero />
       <Landing_Cars />
