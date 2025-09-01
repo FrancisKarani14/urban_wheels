@@ -36,25 +36,41 @@ function Process() {
         </section>
 
       </div>
-      <div className='flex bg-[#0A0A0A]'>
-
-        <section className='bg-[#171717] flex'>
-          <div className="flex-col">
-          <h2>Rental Terms</h2>
-            <p>We are here for you to help you find the car of your choice</p>
+      <div className="flex bg-[#0A0A0A] py-10 px-5 text-white justify-center">
+  <section className="bg-[#171717] flex flex-col md:flex-row gap-10 p-8 rounded-2xl w-full max-w-6xl">
+    {/* Left side text */}
+    <div className="flex-1">
+      <h2 className="text-4xl font-bold mb-3">Rental Terms</h2>
+      <p className="text-gray-300 text-lg mb-5">
+        We are here for you to help you find the car of your choice
+            </p>
+            <div className=' flex gap-5'>
+              <img src="https://media.istockphoto.com/id/1366350434/photo/shot-of-a-young-woman-using-a-headset-and-laptop-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=XrTKzcQDnbGlL8-wh_9APuXJyKJqFGN5KwXb1PlR-co=" alt="Customer care" className='h-10 w-10 rounded-full' />
+              <div className="flex-col">
+              <h3 className='text-xl font-bold'>Emily Jane</h3>
+              <h4 className='text-lg'>Your Personal Rental assistant</h4>
+               
+              </div>
+               
             </div>
-          <div>
-            {rules.map((rule, index) => (
-              <div className='bg-[#262626] h-40'>
-              <h3>{rule.name}</h3>
-                <h4>{ rule.description}</h4>
-                </div>
-            ))}
-          </div>
-        </section>
+            <button className='bg-[#F8FAFC] text-[#0C0A09] py-2 px-4 rounded-2xl cursor-pointer'>Call Us</button>
+    </div>
 
+    {/* Right side rules */}
+    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {rules.map((rule, index) => (
+        <div
+          key={index}
+          className="bg-[#262626] p-5 rounded-xl shadow-md hover:shadow-lg transition duration-300"
+        >
+          <h3 className="text-lg font-semibold mb-2">{rule.name}</h3>
+          <h4 className="text-gray-400 text-sm">{rule.description}</h4>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
 
-      </div>
       
     </div>
   )
