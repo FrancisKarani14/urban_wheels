@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-[#18181B] text-white p-6 text-center">
+    <div className='bg-[#18181B] '>
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6  text-white p-6 text-center">
   <section>
     <h2 className="font-bold mb-2 text-lg">Urban Wheels</h2>
     <p>
@@ -33,8 +34,11 @@ function Footer() {
     <p>TikTok</p>
     <p>X</p>
     <p>Facebook</p>
-  </section>
-</div>
+      </section>
+      
+      </div>
+      <p className='text-[#FFD230] text-center'>Copyright &copy;2025 Created By Francis Karani. All rights reserved</p>
+      </div>
 
   )
 }
