@@ -1,14 +1,43 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   return (
-    <div className="flex justify-center items-center gap-10 p-4 ">
-      <h1 className="font-bold text-xl text-[#F8FAFC]">Urban_<span className='text-[#FFDF20]'>Wheels</span></h1>
+    <div className="flex justify-center items-center gap-7 p-4 ">
+      <h1 className="font-bold text-xl text-[#05DF72]">Urban_<span className='text-[#FFDF20]'>Wheels</span></h1>
       <nav className="flex gap-8 text-[#F8FAFC] ">
-        <Link to="/">Home</Link>
-        <Link to="/about">About Urban_Wheels</Link>
-        <Link to="/book">Book now</Link>
+        <NavLink 
+        to="/" 
+        className={({ isActive }) =>
+          isActive 
+            ? "text-[#F8FAFC] font-semibold"   // active style
+            : "text-black hover:text-[#FFD230]" // normal + hover style
+        }
+      >
+        Home
+      </NavLink>
+
+      <NavLink 
+        to="/about" 
+        className={({ isActive }) =>
+          isActive 
+            ? "text-[#F8FAFC] font-semibold" 
+            : "text-black hover:text-[#FFD230]"
+        }
+      >
+        About
+      </NavLink>
+
+      <NavLink 
+        to="/book" 
+        className={({ isActive }) =>
+          isActive 
+            ? "text-[#F8FAFC] font-semibold" 
+            : "text-black hover:text-[#FFD230]"
+        }
+      >
+        Book Now
+      </NavLink>
       </nav>
     </div>
   );

@@ -13,11 +13,11 @@ function Hero() {
     >
       <div className='flex-col items-center'>
         
-      <div className='text-center'>
+      <div className='text-center mb-5'>
         <h1 className='text-5xl mb-2' >Explore the Road</h1>
           <h2 className='text-4xl mb-2'>With Urban_Wheels</h2>
       </div>
-          <section className='text-center'>
+          <section className='text-center mb-5'>
           <p className='text-base'>From quick weekend rides to big business moments, grand launches to unforgettable dates</p>
           <p></p>
             <p className='text-base'>we’re the wheels that move your moments.</p>
@@ -25,8 +25,8 @@ function Hero() {
           </section>
           
         <section className='flex gap-3 items-center justify-center'>
-          <Link to="/book" className='bg-[#FFDF20] p-1 text-base text-[#09090B] rounded-sm'>Reserve now</Link >
-          <Link to="about" className='bg-[#05DF72] p-1 text-base text-[#09090B] rounded-sm'>About us</Link >
+          <Link to="/book" className='bg-[#FFDF20] p-1 text-base text-[#09090B] rounded-sm'>Reserve your car</Link >
+          <Link to="about" className='bg-[#05DF72] p-1 text-base text-[#09090B] rounded-sm'>About Urban_Wheels</Link >
         </section>
         
         </div>
