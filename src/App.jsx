@@ -9,7 +9,7 @@ function App() {
   
 
   return (
-    <>
+    <div className='bg-black'>
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/About' element={<About />} />
@@ -18,7 +18,7 @@ function App() {
 
       </Routes>
       
-    </>
+    </div>
   )
 }
 

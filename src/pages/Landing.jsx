@@ -7,8 +7,10 @@ import Footer from '../components/Footer'
 
 function Landing() {
   return (
-    <div>
+    <div className='bg-[#0A0A0A] '>
       < Navbar />
+      <Hero />
+      <Footer />
     </div>
   )
 }
