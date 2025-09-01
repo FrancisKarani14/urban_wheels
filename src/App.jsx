@@ -9,7 +9,7 @@ function App() {
   
 
   return (
-    <div className='bg-[#0c0a09b0]'>
+    <div className='bg-[#292524]'>
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/About' element={<About />} />

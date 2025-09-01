@@ -8,7 +8,7 @@ function Hero() {
   bg-[linear-gradient(to_bottom,rgba(3,7,18,0.8),rgba(3,7,18,0.8)),url('https://media.istockphoto.com/id/2232155334/photo/lamborghini-urus-suv-driving-in-monaco.jpg?s=612x612&w=0&k=20&c=rKOqCtV7Z6lLjRUEDG_Rfm8bjM9khmW4RpXtRAEPZH4=')] 
   bg-cover bg-center 
   flex items-center justify-center 
-  text-white text-2xl font-bold"
+  text-white text-2xl font-bold  "
 
     >
       <div className='flex-col items-center'>

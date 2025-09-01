@@ -10,6 +10,7 @@ function Landing() {
     <div className=' '>
       < Navbar />
       <Hero />
+      <Landing_Cars />
       <Footer />
     </div>
   )
