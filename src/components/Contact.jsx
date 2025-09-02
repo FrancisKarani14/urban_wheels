@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function BookingForm() {
   const [formData, setFormData] = useState({
@@ -38,6 +40,10 @@ function BookingForm() {
     "Long Term Rental"
   ];
 
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -51,7 +57,6 @@ function BookingForm() {
     console.log("Form Data Submitted:", formData);
     alert("Booking request submitted 🚗✅");
 
-    // 🔹 Reset form after submit
     setFormData({
       name: '',
       email: '',
@@ -67,15 +72,20 @@ function BookingForm() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4">
+
+      {/* Image Side */}
       <img 
         src="https://media.istockphoto.com/id/1597068908/photo/porsche-panamera-hybrid-electric-car.jpg?s=612x612&w=0&k=20&c=PETfzIJUGijdmFLembrlUzYthRMw46JH3FAzTx5PmeY=" 
         alt="porche panamera" 
         className="rounded-lg shadow-sm object-cover h-full"
+        data-aos="fade-right" // slides in from right
       />
 
+      {/* Form Side */}
       <form 
         onSubmit={handleSubmit} 
         className="bg-white p-4 rounded-lg shadow-md w-full max-w-md border border-gray-200 text-sm"
+        data-aos="fade-left" // slides in from left
       >
         <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
           Car Booking Form
