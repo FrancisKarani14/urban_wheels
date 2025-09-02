@@ -8,7 +8,7 @@ function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto z-50">
+    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto mx-2 z-50">
       <div className="flex justify-between items-center p-2 bg-[#0c0a0925] rounded-2xl mt-2">
         {/* Logo */}
         <h1 className="font-bold text-xl text-[#05DF72]">
