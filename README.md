@@ -44,7 +44,7 @@ An application that automates the process of hiring cars. It allows users to bro
 ### Steps
 ```bash
 # Clone the repository
-git clone <your-repo-link>
+git clone <git@github.com:FrancisKarani14/urban_wheels.git>
 
 # Navigate into the directory
 cd urban-wheels
@@ -60,7 +60,7 @@ npm run dev
 
 ## 🌍 Live Viewing
 
-1. Use the hosted link (if deployed)
+1. Use the hosted link [urban wheels](https://urban-wheels-liard.vercel.app/)
 2. Read the process and rental terms
 3. Find your preferred car
 4. Fill in the form to book
@@ -72,7 +72,7 @@ npm run dev
 **Francis Karani**
 
 * GitHub: [FrancisKarani14](https://github.com/FrancisKarani14)
-* LinkedIn: [Ng'ang'a Karani]((https://www.linkedin.com/in/ng-ang-a-karani-5a5106373/))
+* LinkedIn: [Ng'ang'a Karani](https://www.linkedin.com/in/ng-ang-a-karani-5a5106373/)
 
 ---
 
