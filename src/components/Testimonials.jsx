@@ -57,15 +57,29 @@ function Testimonials() {
     }
   ];
 
-  const settings = {
+ const settings = {
     dots: true,
     infinite: true,
     speed: 600,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
+    slidesToShow: 4, // default for large screens
+    slidesToScroll: 1,
+    autoplay: true,         // ✅ auto slide
+    autoplaySpeed: 3000,    // ✅ slide every 3s
+    pauseOnHover: true,     // ✅ pause when hovered
+    responsive: [
+      {
+        breakpoint: 1024, // tablets
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768, // mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
 
   return (
