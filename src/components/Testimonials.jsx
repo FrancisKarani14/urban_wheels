@@ -61,7 +61,7 @@ function Testimonials() {
     dots: true,
     infinite: true,
     speed: 600,
-    slidesToShow: 4, // default for large screens
+    slidesToShow: 1, // default for large screens
     slidesToScroll: 1,
     autoplay: true,         // ✅ auto slide
     autoplaySpeed: 3000,    // ✅ slide every 3s
