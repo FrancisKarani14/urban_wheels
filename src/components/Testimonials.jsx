@@ -1,4 +1,7 @@
 import React from 'react'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Testimonials() {
   const testimonials = [
@@ -52,31 +55,41 @@ function Testimonials() {
       image: "https://media.istockphoto.com/id/2195534339/photo/smiling-afro-girl-in-eyeglasses-posing-over-grey-background.jpg?s=612x612&w=0&k=20&c=-Ap4orSGl_Qc0rTJj9_rYKiMKqPY_CYRRDaBW87atCM=",
       name:"Linda S."
     }
-  ]
+  ];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: false,
+  };
 
   return (
     <div className="bg-[#CAD5E2] py-10">
       <h2 className="text-2xl font-bold text-center mb-6">What Our Clients Say</h2>
-      <div className="flex gap-6 overflow-x-auto scrollbar-hide px-6">
+      <Slider {...settings}>
         {testimonials.map((testimonial, index) => (
-          <div 
-            key={index} 
-            className="min-w-[300px] max-w-[300px] bg-white p-6 rounded-2xl shadow-md flex-shrink-0"
-          >
-            <p className="text-gray-700 italic mb-4">"{testimonial.testimony}"</p>
-            <div className="flex items-center gap-3">
-              <img 
-                src={testimonial.image} 
-                alt={testimonial.name} 
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+          <div key={index} className="p-4">
+            <div className="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between">
+              <p className="text-gray-700 italic mb-4">"{testimonial.testimony}"</p>
+              <div className="flex items-center gap-3">
+                <img 
+                  src={testimonial.image} 
+                  alt={testimonial.name} 
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+              </div>
             </div>
           </div>
         ))}
-      </div>
+      </Slider>
     </div>
-  )
+  );
 }
 
-export default Testimonials
+export default Testimonials;

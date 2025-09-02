@@ -1,6 +1,14 @@
 import React from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 
 function About_us() {
+  useEffect(() => {
+  AOS.init({ duration: 1000, once: true }); // duration in ms, once=true to animate only once
+}, []);
+
   return (
     <div className="bg-[#0A0A0A] px-8 py-16">
       {/* First Section */}

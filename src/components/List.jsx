@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 function List() {
   const cars = [
@@ -76,13 +79,21 @@ function List() {
       cost: "$220/day"
     }
   ];
+    useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   return (
     <div className="bg-black min-h-screen p-6 text-white">
       <h1 className="text-3xl font-bold text-center mt-8 mb-8">Choose the perfect car for your trip</h1>
       <div className="grid md:grid-cols-3 gap-6">
         {cars.map((car, index) => (
-          <div key={index} className="bg-gray-900 rounded-xl shadow-lg p-4">
+          <div
+            key={index}
+            className="bg-gray-900 rounded-xl shadow-lg p-4"
+             data-aos="fade-up"     // <-- Add this
+           data-aos-delay={index * 100} 
+          >
             <h3 className="text-sm text-gray-400 mb-2">Available: {car.fleet}</h3>
             <img src={car.image} alt={car.name} className="rounded-lg w-full h-48 object-cover mb-3" />
             

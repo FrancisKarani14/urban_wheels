@@ -1,6 +1,12 @@
 import React from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 function Landing_Cars() {
+    useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   const cars = [
     {
@@ -67,6 +73,8 @@ function Landing_Cars() {
       className="bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl 
                  transition-transform duration-300 transform hover:-translate-y-2
                  border border-gray-100"
+       data-aos="fade-up"     // <-- Add this
+  data-aos-delay={index * 100} 
     >
       <div className="overflow-hidden rounded-lg mb-4">
         <img

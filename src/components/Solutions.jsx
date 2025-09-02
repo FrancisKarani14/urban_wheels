@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 function Solutions() {
   const solutions = [
@@ -37,7 +40,10 @@ function Solutions() {
     }
   ]
 
-  
+  useEffect(() => {
+  AOS.init({ duration: 1000 });
+}, []);
+
 
   return (
     <div className="bg-[#F5F5F4] py-12 px-6">
@@ -50,6 +56,8 @@ function Solutions() {
           <div 
             key={index} 
             className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300"
+             data-aos="fade-up"     // <-- Add this
+           data-aos-delay={index * 100} 
           >
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               {solution.name}
