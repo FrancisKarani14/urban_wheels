@@ -79,6 +79,12 @@ function Testimonials() {
           slidesToShow: 1,
         },
       },
+      {
+        breakpoint: 567, // mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
     ],
   };
 
