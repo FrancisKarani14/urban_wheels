@@ -44,7 +44,7 @@ An application that automates the process of hiring cars. It allows users to bro
 ### Steps
 ```bash
 # Clone the repository
-git clone <git@github.com:FrancisKarani14/urban_wheels.git>
+git clone git@github.com:FrancisKarani14/urban_wheels.git
 
 # Navigate into the directory
 cd urban-wheels
