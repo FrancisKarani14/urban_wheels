@@ -37,6 +37,8 @@ function Solutions() {
     }
   ]
 
+  
+
   return (
     <div className="bg-[#F5F5F4] py-12 px-6">
       <h2 className="text-3xl font-extrabold text-center text-[#31C950] mb-10">
