@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import About_us from '../components/About_us'
 import Solutions from '../components/Solutions'
 import Testimonials from '../components/Testimonials'
+import FAQ from '../components/Faq'
 function About() {
   return (
     <div className='mx-5'>
@@ -11,6 +12,7 @@ function About() {
       <About_us />
       <Solutions />
       <Testimonials />
+      <FAQ />
       <Footer />
       
     </div>
