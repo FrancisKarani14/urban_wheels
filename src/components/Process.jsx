@@ -22,20 +22,45 @@ function Process() {
   return (
     <div className='bg-[#F8FAFC]'>
 
-      <div className='bg-[#0A0A0A] grid grid-cols-2  sm:grid-cols-1 justify-center gap-10'>
-        <img src="https://media.istockphoto.com/id/2199063527/photo/car-seller-shaking-hands-with-buyers-after-successful-deal-selling-auto-in-dealership-center.jpg?s=612x612&w=0&k=20&c=U_sh2RMkDsSwgHBq6s7gtpYEVI8l7n4s4uSP0vSYo20=" alt="process image" className='h-90  ' />
-        <section className='flex-col'>
-          <h1 className='text-[#FAFAFA] font-bold text-3xl text-center py-5'>Rent your car in 3 easy steps</h1>
-          <h2 className='text-[#FAFAFA] font-bold text-2xl'>Choose Your car</h2>
-          <p className=' text-base text-[#FAFAFA]'>Explore our fleet of cars and find the vehicle that perfectly suits your preference</p>
-          <h2 className='text-[#FAFAFA] font-bold text-2xl'>Book Online</h2>
-          <p className=' text-base text-[#FAFAFA]'>Book your car instantly in our customer friendly platform. Select dates and to confirm your reservations</p>
-          <h2 className='text-[#FAFAFA] font-bold text-2xl'>Pick & Drive</h2>
-          <p className=' text-base text-[#FAFAFA]'>Head to your pickup location and grab your keys. Have a smooth and reliable ride with the well mentained Urban_wheel vehicle</p>
+  <div className="bg-[#0A0A0A] grid grid-cols-1 md:grid-cols-2 items-center gap-8 p-8 md:p-12">
+  {/* Image */}
+  <img 
+    src="https://media.istockphoto.com/id/2199063527/photo/car-seller-shaking-hands-with-buyers-after-successful-deal-selling-auto-in-dealership-center.jpg?s=612x612&w=0&k=20&c=U_sh2RMkDsSwgHBq6s7gtpYEVI8l7n4s4uSP0vSYo20=" 
+    alt="process image" 
+    className="w-full h-[400px] object-cover rounded-xl shadow-lg"
+  />
 
-        </section>
+  {/* Text Section */}
+  <section className="flex flex-col justify-center space-y-6 text-center md:text-left">
+    <h1 className="text-[#FAFAFA] font-bold text-3xl md:text-4xl">
+      Rent your car in 3 easy steps
+    </h1>
 
+    <div className="space-y-4">
+      <div>
+        <h2 className="text-[#FAFAFA] font-semibold text-xl">🚗 Choose Your Car</h2>
+        <p className="text-sm md:text-base text-gray-300">
+          Explore our fleet and find the vehicle that perfectly suits your preference.
+        </p>
       </div>
+
+      <div>
+        <h2 className="text-[#FAFAFA] font-semibold text-xl">📅 Book Online</h2>
+        <p className="text-sm md:text-base text-gray-300">
+          Instantly book through our customer-friendly platform. Select dates and confirm your reservation.
+        </p>
+      </div>
+
+      <div>
+        <h2 className="text-[#FAFAFA] font-semibold text-xl">🗝 Pick & Drive</h2>
+        <p className="text-sm md:text-base text-gray-300">
+          Head to your pickup location, grab your keys, and enjoy a smooth ride with a well-maintained Urban_wheel vehicle.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
       <div className="flex bg-[#0A0A0A] py-10 px-5 text-white justify-center">
   <section className="bg-[#171717] flex flex-col md:flex-row gap-10 p-8 rounded-2xl w-full max-w-6xl">
     {/* Left side text */}
