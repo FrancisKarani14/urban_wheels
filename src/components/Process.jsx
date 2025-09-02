@@ -22,7 +22,7 @@ function Process() {
   return (
     <div className='bg-[#F8FAFC]'>
 
-      <div className='bg-[#0A0A0A] flex justify-center gap-10'>
+      <div className='bg-[#0A0A0A] grid grid-cols-2 justify-center gap-10'>
         <img src="https://media.istockphoto.com/id/2199063527/photo/car-seller-shaking-hands-with-buyers-after-successful-deal-selling-auto-in-dealership-center.jpg?s=612x612&w=0&k=20&c=U_sh2RMkDsSwgHBq6s7gtpYEVI8l7n4s4uSP0vSYo20=" alt="process image" className='h-90  ' />
         <section className='flex-col'>
           <h1 className='text-[#FAFAFA] font-bold text-3xl text-center py-5'>Rent your car in 3 easy steps</h1>
