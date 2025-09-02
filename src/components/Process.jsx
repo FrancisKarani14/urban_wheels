@@ -78,7 +78,7 @@ function Process() {
               </div>
                
             </div>
-            <button className='bg-[#F8FAFC] text-[#0C0A09] py-2 px-4 rounded-2xl cursor-pointer'>Call Us</button>
+            <button className='bg-[#F8FAFC] text-[#0C0A09] py-2 px-4 rounded-2xl cursor-pointer justify-center items-center'>Call Us</button>
     </div>
 
     {/* Right side rules */}
