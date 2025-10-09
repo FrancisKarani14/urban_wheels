@@ -7,7 +7,7 @@ import Testimonials from '../components/Testimonials'
 import FAQ from '../components/Faq'
 function About() {
   return (
-    <div className='mx-5'>
+    <div className='mx-5 py-16'>
       <Navbar />
       <About_us />
       <Solutions />

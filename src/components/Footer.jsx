@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <div className='bg-[#18181B] '>
+    <div className='bg-[#18181B] px-16'>
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6  text-white p-6 text-center">
   <section>
     <h2 className="font-bold mb-2 text-lg">Urban Wheels</h2>
