@@ -71,74 +71,75 @@ function BookingForm() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4 md:p-10">
 
-      {/* Image Side */}
-      <img 
-        src="https://media.istockphoto.com/id/1597068908/photo/porsche-panamera-hybrid-electric-car.jpg?s=612x612&w=0&k=20&c=PETfzIJUGijdmFLembrlUzYthRMw46JH3FAzTx5PmeY=" 
-        alt="porche panamera" 
-        className="rounded-lg shadow-sm object-cover h-full"
-        data-aos="fade-right" // slides in from right
-      />
+  {/* Image Side */}
+  <img 
+    src="https://media.istockphoto.com/id/1597068908/photo/porsche-panamera-hybrid-electric-car.jpg?s=612x612&w=0&k=20&c=PETfzIJUGijdmFLembrlUzYthRMw46JH3FAzTx5PmeY=" 
+    alt="porche panamera" 
+    className="rounded-lg shadow-sm object-cover h-full w-full"
+    data-aos="fade-right"
+  />
 
-      {/* Form Side */}
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-white p-4 rounded-lg shadow-md w-full max-w-md border border-gray-200 text-sm"
-        data-aos="fade-left" // slides in from left
-      >
-        <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
-          Car Booking Form
-        </h2>
+  {/* Form Side */}
+  <form 
+    onSubmit={handleSubmit} 
+    className="bg-white p-6 md:p-8 rounded-lg shadow-md w-full max-w-lg mx-auto border border-gray-200 text-sm"
+    data-aos="fade-left"
+  >
+    <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
+      Car Booking Form
+    </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <input type="text" name="name" value={formData.name} onChange={handleChange}
-            placeholder="Full Name" className="p-2 border rounded-md text-sm" required />
-          <input type="email" name="email" value={formData.email} onChange={handleChange}
-            placeholder="Email" className="p-2 border rounded-md text-sm" required />
-          <input type="text" name="contact" value={formData.contact} onChange={handleChange}
-            placeholder="Contact Number" className="p-2 border rounded-md text-sm" required />
-          <input type="text" name="pickup" value={formData.pickup} onChange={handleChange}
-            placeholder="Pickup Location" className="p-2 border rounded-md text-sm" required />
-          <input type="text" name="dropoff" value={formData.dropoff} onChange={handleChange}
-            placeholder="Drop-off Location" className="p-2 border rounded-md text-sm" required />
-        </div>
-
-        <label className="block mt-3 mb-1 font-medium text-gray-700 text-sm">Select Car</label>
-        <select name="car" value={formData.car} onChange={handleChange}
-          className="w-full p-2 border rounded-md text-sm mb-3" required>
-          <option value="">-- Choose a Car --</option>
-          {cars.map((car, index) => (
-            <option key={index} value={car}>{car}</option>
-          ))}
-        </select>
-
-        <label className="block mb-1 font-medium text-gray-700 text-sm">Select Service</label>
-        <select name="service" value={formData.service} onChange={handleChange}
-          className="w-full p-2 border rounded-md text-sm mb-3" required>
-          <option value="">-- Choose a Service --</option>
-          {services.map((service, index) => (
-            <option key={index} value={service}>{service}</option>
-          ))}
-        </select>
-
-        <label className="block mb-1 font-medium text-gray-700 text-sm">Message</label>
-        <textarea name="message" value={formData.message} onChange={handleChange}
-          className="w-full p-2 border rounded-md text-sm mb-3"
-          placeholder="Add any special request..." rows="3"></textarea>
-
-        <div className="flex items-center mb-3 text-sm">
-          <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange}
-            className="mr-2 h-4 w-4" required />
-          <label>I agree to the terms & conditions</label>
-        </div>
-
-        <button type="submit" 
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm transition">
-          Submit Booking
-        </button>
-      </form>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <input type="text" name="name" value={formData.name} onChange={handleChange}
+        placeholder="Full Name" className="p-2 border rounded-md text-sm" required />
+      <input type="email" name="email" value={formData.email} onChange={handleChange}
+        placeholder="Email" className="p-2 border rounded-md text-sm" required />
+      <input type="text" name="contact" value={formData.contact} onChange={handleChange}
+        placeholder="Contact Number" className="p-2 border rounded-md text-sm" required />
+      <input type="text" name="pickup" value={formData.pickup} onChange={handleChange}
+        placeholder="Pickup Location" className="p-2 border rounded-md text-sm" required />
+      <input type="text" name="dropoff" value={formData.dropoff} onChange={handleChange}
+        placeholder="Drop-off Location" className="p-2 border rounded-md text-sm" required />
     </div>
+
+    <label className="block mt-3 mb-1 font-medium text-gray-700 text-sm">Select Car</label>
+    <select name="car" value={formData.car} onChange={handleChange}
+      className="w-full p-2 border rounded-md text-sm mb-3" required>
+      <option value="">-- Choose a Car --</option>
+      {cars.map((car, index) => (
+        <option key={index} value={car}>{car}</option>
+      ))}
+    </select>
+
+    <label className="block mb-1 font-medium text-gray-700 text-sm">Select Service</label>
+    <select name="service" value={formData.service} onChange={handleChange}
+      className="w-full p-2 border rounded-md text-sm mb-3" required>
+      <option value="">-- Choose a Service --</option>
+      {services.map((service, index) => (
+        <option key={index} value={service}>{service}</option>
+      ))}
+    </select>
+
+    <label className="block mb-1 font-medium text-gray-700 text-sm">Message</label>
+    <textarea name="message" value={formData.message} onChange={handleChange}
+      className="w-full p-2 border rounded-md text-sm mb-3"
+      placeholder="Add any special request..." rows="3"></textarea>
+
+    <div className="flex items-center mb-3 text-sm">
+      <input type="checkbox" name="agree" checked={formData.agree} onChange={handleChange}
+        className="mr-2 h-4 w-4" required />
+      <label>I agree to the terms & conditions</label>
+    </div>
+
+    <button type="submit" 
+      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm transition">
+      Submit Booking
+    </button>
+  </form>
+</div>
+
   );
 }
 
