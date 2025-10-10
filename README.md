@@ -60,7 +60,7 @@ npm run dev
 
 ## 🌍 Live Viewing
 
-1. Use the hosted link [urban wheels](https://urban-wheels-liard.vercel.app/)
+1. Use the hosted link [urban wheels](https://urban-wheels-two.vercel.app/)
 2. Read the process and rental terms
 3. Find your preferred car
 4. Fill in the form to book
