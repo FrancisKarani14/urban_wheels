@@ -5,29 +5,29 @@ export default function Cars() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Dummy car (for now)
-  const dummyCar = {
-    id: 1,
-    model: "Toyota Corolla",
-    numberPlate: "KDG 234H",
-    preserved: true,
-    preservedBy: "John Doe",
-    preservedDate: "2025-10-01",
-    pickupLocation: "Nairobi CBD",
-    amountPaid: "2500",
-    returnDate: "2025-10-05",
-    image: "https://via.placeholder.com/120", // preview image
-  };
+//   const dummyCar = {
+//     id: 1,
+//     model: "Toyota Corolla",
+//     numberPlate: "KDG 234H",
+//     preserved: true,
+//     preservedBy: "John Doe",
+//     preservedDate: "2025-10-01",
+//     pickupLocation: "Nairobi CBD",
+//     amountPaid: "2500",
+//     returnDate: "2025-10-05",
+//     image: "https://via.placeholder.com/120", 
+//   };
 
   useEffect(() => {
     // Fetch cars from backend later
-    // Example:
-    // fetch("http://localhost:5000/cars")
-    //   .then(res => res.json())
-    //   .then(data => setCars(data))
-    //   .catch(err => console.error(err));
+    Example:
+    fetch("http://localhost:5000/cars")
+      .then(res => res.json())
+      .then(data => setCars(data))
+      .catch(err => console.error(err));
 
     // For now show the dummy car
-    setCars([dummyCar]);
+    // setCars([dummyCar]);
   }, []);
 
   const handleSearch = (e) => {
