@@ -68,7 +68,7 @@ export default function Cars() {
         <input type="text" placeholder="Model" className="p-2 border rounded" required />
         <input type="text" placeholder="Number Plate" className="p-2 border rounded" required />
         <input type="text" placeholder="Capacity" className="p-2 border rounded" required />
-        <input type="text" placeholder="Model" className="p-2 border rounded" required />
+        <input type="text" placeholder="Category" className="p-2 border rounded" required />
           <input type="number" placeholder="Amount in a day" className="p-2 border rounded" required />
           <input type="file" accept="image/*" className="p-2 border rounded" required />
         </div>
