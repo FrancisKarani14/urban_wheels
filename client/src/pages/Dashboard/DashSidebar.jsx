@@ -21,9 +21,9 @@ export default function DashSidebar() {
 
   return (
     <>
-      {/* Mobile Toggle */}
+      {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 rounded-lg text-gray-200 hover:bg-gray-700 transition"
+        className="md:hidden fixed top-20 left-4 z-50 p-2 bg-gray-800 rounded-lg text-gray-200 hover:bg-gray-700 transition"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -31,15 +31,17 @@ export default function DashSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 left-0 h-full md:h-auto bg-gray-900 text-white w-64 transform ${
+        className={`fixed md:static top-16 left-0 bg-gray-900 text-white w-64 h-[calc(100vh-4rem)] overflow-y-auto transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-xl`}
       >
+        {/* Sidebar Header */}
         <div className="flex items-center justify-center h-16 border-b border-gray-700">
           <h1 className="text-xl font-bold text-[#FFD230]">UrbanWheel Admin</h1>
         </div>
 
-        <nav className="flex flex-col mt-6 space-y-1">
+        {/* Navigation Links */}
+        <nav className="flex flex-col mt-4 space-y-1">
           {links.map((link) => (
             <NavLink
               key={link.name}
@@ -51,7 +53,7 @@ export default function DashSidebar() {
                     : "text-gray-300 hover:bg-gray-800 hover:text-[#FFD230]"
                 }`
               }
-              onClick={() => setIsOpen(false)} // Close on mobile
+              onClick={() => setIsOpen(false)}
             >
               {link.icon}
               {link.name}
