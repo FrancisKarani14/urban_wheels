@@ -6,21 +6,28 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from models import db, User, Car, Reservation
 
 
-
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://francis:DevKarani@localhost/urban_wheels_db'
+CORS(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://francis:DevKarani@localhost/urban_wheels'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
-CORS(app)
+
 api = Api(app)
 
 
 @app.route('/')
 def home():
     return "Welcome to the Flask App!"
+
+# All cars endpoint
+class CarListResource(Resource):
+    def get(self):
+        cars = Car.query.all()
+        return jsonify([car.to_dict() for car in cars])
+
 
 
 if __name__ == '__main__':
