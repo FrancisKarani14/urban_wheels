@@ -151,12 +151,12 @@ class DeleteCar(Resource):
         return make_response(jsonify({'message': 'Car deleted successfully'}), 200)
 api.add_resource(DeleteCar, '/cars/delete/<int:car_id>')
 
-# # all users endpoint
-# class Users(Resource):
-#     def get(self):
-#         users = User.query.all()
-#         return jsonify([user.to_dict() for user in users])
-# api.add_resource(Users, '/users')
+# all users endpoint
+class Users(Resource):
+    def get(self):
+        users = User.query.all()
+        return jsonify([user.to_dict() for user in users])
+api.add_resource(Users, '/users')
 
 # available cars endpoint
 class AvailableCars(Resource):
