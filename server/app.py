@@ -27,6 +27,7 @@ class CarListResource(Resource):
     def get(self):
         cars = Car.query.all()
         return jsonify([car.to_dict() for car in cars])
+api.add_resource(CarListResource, '/cars')
 
 
 

@@ -18,6 +18,9 @@ class User(db.Model, SerializerMixin):
     # relationships
     reservation = db.relationship(
         'Reservation', backref='user', lazy=True, cascade="all, delete-orphan")
+    
+    # serialize rules
+    serialize_rules = ('-password', '-reservation.user', '-reservation.car', '-car.reservation', '-user.reservation',)
 
     def __repr__(self):
         return f'<User {self.username}, {self.email}, {self.role}>'
@@ -40,6 +43,9 @@ class Car(db.Model, SerializerMixin):
     # relationships
     reservation = db.relationship(
         'Reservation', backref='car', lazy=True, cascade="all, delete-orphan")
+    
+    # serialize rules
+    serialize_rules = ('-reservation.car', '-reservation.user', '-user.reservation', '-car.reservation',)
 
     def __repr__(self):
         return f'<Car {self.make} {self.model} ${self.price_per_day}/day>'
@@ -57,6 +63,9 @@ class Reservation(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(
         db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+    
+    # serialize rules   
+    serialize_rules = ('-user.reservation', '-car.reservation', '-reservation.user', '-reservation.car',)
 
     def __repr__(self):
         return f'<Reservation {self.id} - User {self.user_id} - Car {self.car_id} - {self.status}>'

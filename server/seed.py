@@ -10,7 +10,7 @@ with app.app_context():
 
     # --- USERS ---
     users = []
-    for i in range(1, 19):
+    for i in range(1, 29):  # 28 normal users
         user = User(
             username=f"user{i}",
             email=f"user{i}@gmail.com",
@@ -38,49 +38,39 @@ with app.app_context():
     db.session.add_all(users)
     db.session.commit()
 
-    # --- CARS ---
-    car_models = [
-        ("Toyota Corolla", "Sedan", 5),
-        ("Honda Civic", "Sedan", 5),
-        ("Mazda CX-5", "SUV", 5),
-        ("Nissan X-Trail", "SUV", 7),
-        ("Range Rover Evoque", "SUV", 5),
-        ("Subaru Forester", "SUV", 5),
-        ("BMW 3 Series", "Sedan", 5),
-        ("Audi Q5", "SUV", 5),
-        ("Mercedes C-Class", "Sedan", 5),
-        ("Volkswagen Tiguan", "SUV", 5),
-        ("Kia Sportage", "SUV", 5),
-        ("Hyundai Tucson", "SUV", 5),
-        ("Ford Ranger", "Pickup", 5),
-        ("Toyota Hilux", "Pickup", 5),
-        ("Isuzu D-Max", "Pickup", 5),
-        ("Mitsubishi Outlander", "SUV", 7),
-        ("Jeep Compass", "SUV", 5),
-        ("Peugeot 3008", "SUV", 5),
-        ("Chevrolet Trailblazer", "SUV", 7),
-        ("Suzuki Swift", "Hatchback", 5),
-        ("Toyota Land Cruiser", "SUV", 7),
-        ("Tesla Model 3", "Sedan", 5),
-        ("Ford Mustang", "Coupe", 4),
-        ("Mini Cooper", "Hatchback", 4),
-        ("Lexus RX", "SUV", 5),
-        ("Volvo XC60", "SUV", 5),
+    # --- LUXURY CARS ---
+    luxury_cars = [
+        ("Range Rover Velar", "SUV", 5),
+        ("Range Rover Sport", "SUV", 5),
+        ("Range Rover Vogue", "SUV", 5),
+        ("Audi A8", "Sedan", 5),
+        ("Audi Q7", "SUV", 7),
+        ("Audi RS7", "Sportback", 4),
+        ("Volkswagen Touareg", "SUV", 5),
+        ("Volkswagen Arteon", "Sedan", 5),
+        ("Mercedes-Benz S-Class", "Sedan", 5),
+        ("Mercedes-Benz GLE", "SUV", 5),
+        ("Mercedes-Benz G-Wagon", "SUV", 5),
+        ("BMW X5", "SUV", 5),
+        ("BMW X7", "SUV", 7),
+        ("BMW 7 Series", "Sedan", 5),
         ("Porsche Cayenne", "SUV", 5),
-        ("BMW X6", "SUV", 5),
-        ("Toyota Prius", "Hybrid", 5),
-        ("Nissan Leaf", "Electric", 5),
+        ("Porsche Panamera", "Sedan", 4),
+        ("Bentley Bentayga", "SUV", 5),
+        ("Bentley Continental GT", "Coupe", 4),
+        ("Lexus LX 600", "SUV", 7),
+        ("Tesla Model X", "Electric SUV", 7)
     ]
 
     cars = []
-    for i, (model, category, capacity) in enumerate(car_models, start=1):
+    for i, (model, category, capacity) in enumerate(luxury_cars, start=1):
         car = Car(
             model=model,
-            number_plate=f"KDA {1000+i}",
+            number_plate=f"KDA {5000+i}",
             capacity=capacity,
             category=category,
             image_url=f"https://source.unsplash.com/600x400/?{model.replace(' ', '%20')}",
-            price_per_day=random.randint(50, 300),
+            price_per_day=random.randint(400, 1200),
             available=True
         )
         cars.append(car)
@@ -90,7 +80,7 @@ with app.app_context():
 
     # --- RESERVATIONS ---
     reservations = []
-    for i in range(1, 6):  # 5 sample reservations
+    for i in range(1, 11):  # just 10 demo reservations
         start = date.today() + timedelta(days=random.randint(1, 10))
         end = start + timedelta(days=random.randint(2, 6))
         car = random.choice(cars)
@@ -112,4 +102,4 @@ with app.app_context():
     db.session.add_all(reservations)
     db.session.commit()
 
-    print("✅ Database successfully seeded with 20 users (2 admins), 30 cars, and sample reservations!")
+    print("✅ Database successfully seeded with 30 users (2 admins), 20 luxury cars, and 10 sample reservations!")
