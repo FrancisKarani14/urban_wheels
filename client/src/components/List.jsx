@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function List() {
   const [cars, setCars] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-
     const fetchCars = async () => {
       try {
-        const response = await fetch("http://localhost:5000/cars"); 
+        const response = await fetch("http://localhost:5000/cars");
         const data = await response.json();
         setCars(data);
       } catch (error) {
         console.error("Error fetching cars:", error);
       }
     };
-
     fetchCars();
   }, []);
+
+  const handleReserve = (car) => {
+    // ✅ Navigate to Contact page and pass car info
+    navigate("/contact", { state: { car } });
+  };
 
   return (
     <div className="bg-black min-h-screen p-6 text-white">
@@ -40,7 +44,11 @@ function List() {
               data-aos-delay={index * 100}
             >
               <div className="relative">
-                <img src={car.image_url} alt={car.model} className="w-full h-52 object-cover" />
+                <img
+                  src={car.image_url}
+                  alt={car.model}
+                  className="w-full h-52 object-cover"
+                />
                 <span
                   className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
                     car.available ? "bg-green-500" : "bg-red-500"
@@ -52,24 +60,30 @@ function List() {
 
               <div className="p-4 flex flex-col flex-grow">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold text-white">{car.model}</h3>
+                  <h3 className="text-lg font-semibold text-white">
+                    {car.model}
+                  </h3>
                   <span className="text-sm text-gray-400">{car.category}</span>
                 </div>
 
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-sm text-gray-400">{car.capacity} Seats</p>
-                  <p className="text-base font-semibold text-green-400">${car.price_per_day}/day</p>
+                  <p className="text-base font-semibold text-green-400">
+                    ${car.price_per_day}/day
+                  </p>
                 </div>
 
                 {car.available ? (
-                  <Link to={`/reserve/${car.id}`} className="bg-blue-600 text-white px-4 py-2 rounded">
-                Reserve Now
-                 </Link>
-
+                  <button
+                    onClick={() => handleReserve(car)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition"
+                  >
+                    Reserve Now
+                  </button>
                 ) : (
                   <button
                     disabled
-                    className="mt-auto w-full text-center bg-gray-700 text-gray-400 font-medium py-2 rounded-md cursor-not-allowed"
+                    className="w-full text-center bg-gray-700 text-gray-400 font-medium py-2 rounded-md cursor-not-allowed"
                   >
                     Not Available
                   </button>

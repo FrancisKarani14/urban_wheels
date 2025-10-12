@@ -6,6 +6,7 @@ import Book from "./pages/Book";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Reserve from "./components/Reserve";
+import Contact from "./components/Contact";
 
 
 // Dashboard Imports
@@ -25,7 +26,7 @@ function App() {
         <Route path="/book" element={<Book />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/reserve/:id" element={<Reserve />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* --- Dashboard Routes (Protected later with JWT) --- */}
         <Route path="/dashboard" element={<DashboardLayout />}>
