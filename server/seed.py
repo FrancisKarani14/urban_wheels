@@ -34,7 +34,6 @@ with app.app_context():
     )
 
     users.extend([admin1, admin2])
-
     db.session.add_all(users)
     db.session.commit()
 
@@ -71,7 +70,7 @@ with app.app_context():
             category=category,
             image_url=f"https://source.unsplash.com/600x400/?{model.replace(' ', '%20')}",
             price_per_day=random.randint(400, 1200),
-            available=True
+            available=True  # all available initially
         )
         cars.append(car)
 
@@ -79,27 +78,40 @@ with app.app_context():
     db.session.commit()
 
     # --- RESERVATIONS ---
+    pickup_locations = [
+        "Nairobi CBD", "Westlands", "Kilimani", "Karen", "Thika Road",
+        "Mombasa CBD", "Syokimau", "Ngong Road", "Kileleshwa", "Lavington"
+    ]
+
     reservations = []
-    for i in range(1, 11):  # just 10 demo reservations
+    reserved_cars = random.sample(cars, 10)  # randomly reserve 10 cars only
+
+    for car in reserved_cars:
+        user = random.choice(users)
         start = date.today() + timedelta(days=random.randint(1, 10))
         end = start + timedelta(days=random.randint(2, 6))
-        car = random.choice(cars)
-        user = random.choice(users)
-
         total_days = (end - start).days
-        total_price = car.price_per_day * total_days
+        amount_paid = car.price_per_day * total_days
 
         res = Reservation(
             user_id=user.id,
             car_id=car.id,
             start_date=start,
             end_date=end,
-            total_price=total_price,
+            amount_paid=amount_paid,
+            pickup_location=random.choice(pickup_locations),
             status=random.choice(["pending", "confirmed", "cancelled"])
         )
+
+        # Mark this car as unavailable
+        car.available = False
+
         reservations.append(res)
 
     db.session.add_all(reservations)
     db.session.commit()
 
-    print("✅ Database successfully seeded with 30 users (2 admins), 20 luxury cars, and 10 sample reservations!")
+    print("✅ Database successfully seeded!")
+    print("   - 30 users (2 admins)")
+    print("   - 20 luxury cars (10 reserved, 10 available)")
+    print("   - 10 sample reservations created 🚗💨")

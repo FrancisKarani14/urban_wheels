@@ -58,7 +58,8 @@ class Reservation(db.Model, SerializerMixin):
     car_id = db.Column(db.Integer, db.ForeignKey('cars.id'), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    total_price = db.Column(db.Float, nullable=False)
+    amount_paid = db.Column(db.Float, nullable=False)
+    pickup_location = db.Column(db.String(200), nullable=True)
     status = db.Column(db.String(50), nullable=False, default='pending')
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(
