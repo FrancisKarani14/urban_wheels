@@ -5,7 +5,6 @@ export default function Cars() {
   const [reservations, setReservations] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [formData, setFormData] = useState({
     model: "",
     number_plate: "",
@@ -14,10 +13,8 @@ export default function Cars() {
     image_url: "",
     price_per_day: "",
   });
-
   const [editingCarId, setEditingCarId] = useState(null);
 
-  // --- Fetch cars and reservations ---
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,7 +24,6 @@ export default function Cars() {
         ]);
         const carsData = await carsRes.json();
         const reservationsData = await reservationsRes.json();
-
         setCars(carsData);
         setReservations(reservationsData);
         setFilteredCars(carsData);
@@ -38,7 +34,6 @@ export default function Cars() {
     fetchData();
   }, []);
 
-  // --- Handle Search ---
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -48,7 +43,6 @@ export default function Cars() {
     setFilteredCars(filtered);
   };
 
-  // --- Merge cars with reservations ---
   const carsWithReservations = filteredCars.map((car) => {
     const reservation = reservations.find((res) => res.car_id === car.id);
     return {
@@ -58,26 +52,22 @@ export default function Cars() {
       reservedBy: reservation ? reservation.user?.username || "-" : "-",
       reservedDate: reservation ? reservation.start_date || "-" : "-",
       pickupLocation: reservation ? reservation.pickup_location || "-" : "-",
-      amountPaid: reservation ? `$${reservation.amount_paid}` : "-",
+      amountPaid: reservation ? `Ksh ${reservation.amount_paid}` : "-",
       returnDate: reservation ? reservation.end_date || "-" : "-",
       status: reservation ? reservation.status || "-" : "-",
     };
   });
 
-  // --- Handle Form Input ---
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // --- Handle Add or Update Car ---
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const url = editingCarId
       ? `http://localhost:5000/cars/update/${editingCarId}`
       : "http://localhost:5000/cars/add";
-
     const method = editingCarId ? "PUT" : "POST";
 
     try {
@@ -88,7 +78,6 @@ export default function Cars() {
       });
 
       if (!res.ok) throw new Error("Failed to save car");
-
       const data = await res.json();
 
       if (editingCarId) {
@@ -132,12 +121,10 @@ export default function Cars() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this car?")) return;
-
     try {
       const res = await fetch(`http://localhost:5000/cars/${id}`, {
         method: "DELETE",
       });
-
       if (!res.ok) throw new Error("Failed to delete car");
 
       setCars((prev) => prev.filter((car) => car.id !== id));
@@ -162,67 +149,47 @@ export default function Cars() {
           {editingCarId ? "Update Car" : "Add New Car"}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <input
-            type="text"
-            name="model"
-            value={formData.model}
-            onChange={handleChange}
-            placeholder="Car Model"
-            required
-            className="p-2 border rounded w-full"
-          />
-          <input
-            type="text"
-            name="number_plate"
-            value={formData.number_plate}
-            onChange={handleChange}
-            placeholder="Number Plate"
-            required
-            className="p-2 border rounded w-full"
-          />
-          <input
-            type="number"
-            name="capacity"
-            value={formData.capacity}
-            onChange={handleChange}
-            placeholder="Capacity"
-            required
-            className="p-2 border rounded w-full"
-          />
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            placeholder="Category (SUV, Sedan...)"
-            required
-            className="p-2 border rounded w-full"
-          />
-          <input
-            type="url"
-            name="image_url"
-            value={formData.image_url}
-            onChange={handleChange}
-            placeholder="Image URL"
-            required
-            className="p-2 border rounded w-full"
-          />
-          <input
-            type="number"
-            name="price_per_day"
-            value={formData.price_per_day}
-            onChange={handleChange}
-            placeholder="Price per day (Ksh)"
-            required
-            className="p-2 border rounded w-full"
-          />
+        {/* smaller input styles */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {[
+            "model",
+            "number_plate",
+            "capacity",
+            "category",
+            "image_url",
+            "price_per_day",
+          ].map((field) => (
+            <input
+              key={field}
+              type={
+                field.includes("price") || field === "capacity" ? "number" : "text"
+              }
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              placeholder={
+                field === "model"
+                  ? "Car Model"
+                  : field === "number_plate"
+                  ? "Number Plate"
+                  : field === "capacity"
+                  ? "Capacity"
+                  : field === "category"
+                  ? "Category (SUV, Sedan...)"
+                  : field === "image_url"
+                  ? "Image URL"
+                  : "Price per day (Ksh)"
+              }
+              required
+              className="p-1.5 text-sm border rounded w-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center sm:justify-start gap-3 mt-4">
+        <div className="flex flex-col sm:flex-row items-center gap-3 mt-4">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded w-full sm:w-auto"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm w-full sm:w-auto"
           >
             {editingCarId ? "Update Car" : "Add Car"}
           </button>
@@ -241,7 +208,7 @@ export default function Cars() {
                   price_per_day: "",
                 });
               }}
-              className="bg-gray-400 hover:bg-gray-500 text-white px-5 py-2 rounded w-full sm:w-auto"
+              className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-1.5 rounded text-sm w-full sm:w-auto"
             >
               Cancel
             </button>
@@ -256,60 +223,52 @@ export default function Cars() {
           placeholder="Search by car model..."
           value={searchTerm}
           onChange={handleSearch}
-          className="border border-gray-300 rounded-lg px-4 py-2 w-full max-w-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-full max-w-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
       </div>
 
       {/* --- Cars Table --- */}
       <div className="overflow-x-auto shadow rounded-lg bg-white">
-        <table className="min-w-full border-collapse text-sm md:text-base">
+        <table className="min-w-full border-collapse text-xs sm:text-sm md:text-base">
           <thead className="bg-gray-100">
             <tr className="text-left">
-            
-              <th className="p-3 border">Model</th>
-              <th className="p-3 border">Category</th>
-              <th className="p-3 border">Available</th>
-              <th className="p-3 border">Reserved By</th>
-              <th className="p-3 border">Pickup</th>
-              <th className="p-3 border">Start</th>
-              <th className="p-3 border">Return</th>
-              <th className="p-3 border">Amount</th>
-              <th className="p-3 border">Status</th>
-              <th className="p-3 border text-center">Actions</th>
+              <th className="p-2 border">Model</th>
+              <th className="p-2 border">Category</th>
+              <th className="p-2 border">Available</th>
+              <th className="p-2 border">Reserved By</th>
+              <th className="p-2 border">Pickup</th>
+              <th className="p-2 border">Start</th>
+              <th className="p-2 border">Return</th>
+              <th className="p-2 border">Amount</th>
+              <th className="p-2 border">Status</th>
+              <th className="p-2 border text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {carsWithReservations.map((car) => (
-              <tr
-                key={car.id}
-                className="hover:bg-gray-50 transition duration-150"
-              >
-                
-                <td className="p-3 border font-semibold">{car.model}</td>
-                <td className="p-3 border">{car.category}</td>
-                {/* <td className="p-3 border text-center">{car.capacity}</td> */}
-                <td className="p-3 border text-center">
+              <tr key={car.id} className="hover:bg-gray-50 transition duration-150">
+                <td className="p-2 border font-semibold">{car.model}</td>
+                <td className="p-2 border">{car.category}</td>
+                <td className="p-2 border text-center">
                   {car.reserved ? (
-                    <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs md:text-sm font-semibold">
+                    <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-xs">
                       Reserved
                     </span>
                   ) : (
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs md:text-sm font-semibold">
+                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">
                       Available
                     </span>
                   )}
                 </td>
-                <td className="p-3 border">{car.reservedBy}</td>
-                <td className="p-3 border">{car.pickupLocation}</td>
-                <td className="p-3 border">{car.reservedDate}</td>
-                <td className="p-3 border">{car.returnDate}</td>
-                <td className="p-3 border text-center">
-                  {car.reserved ? car.amountPaid : "-"}
-                </td>
-                <td className="p-3 border text-center">
+                <td className="p-2 border">{car.reservedBy}</td>
+                <td className="p-2 border">{car.pickupLocation}</td>
+                <td className="p-2 border">{car.reservedDate}</td>
+                <td className="p-2 border">{car.returnDate}</td>
+                <td className="p-2 border text-center">{car.amountPaid}</td>
+                <td className="p-2 border text-center">
                   {car.status !== "-" ? (
                     <span
-                      className={`px-3 py-1 rounded-full text-xs md:text-sm font-semibold ${
+                      className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                         car.status === "confirmed"
                           ? "bg-green-100 text-green-700"
                           : car.status === "pending"
@@ -323,16 +282,16 @@ export default function Cars() {
                     "-"
                   )}
                 </td>
-                <td className="p-3 border text-center space-x-1 sm:space-x-2">
+                <td className="p-2 border text-center space-x-1">
                   <button
                     onClick={() => handleEdit(car)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 sm:px-3 py-1 rounded text-xs md:text-sm"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-0.5 rounded text-xs"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(car.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs md:text-sm"
+                    className="bg-red-500 hover:bg-red-600 text-white px-2 py-0.5 rounded text-xs"
                   >
                     Delete
                   </button>
@@ -346,10 +305,6 @@ export default function Cars() {
           <p className="text-center py-4 text-gray-500">No cars found.</p>
         )}
       </div>
-
-      <footer className="mt-10 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} UrbanWheels Admin Portal
-      </footer>
     </div>
   );
 }
