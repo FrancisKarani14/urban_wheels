@@ -23,11 +23,33 @@ def home():
     return "Welcome to the Flask App!"
 
 # All cars endpoint
-class CarListResource(Resource):
+
+
+class Cars(Resource):
     def get(self):
         cars = Car.query.all()
-        return jsonify([car.to_dict() for car in cars])
-api.add_resource(CarListResource, '/cars')
+        cars_data = []
+        for car in cars:
+            reservation = Reservation.query.filter_by(car_id=car.id).first()
+            cars_data.append({
+                "id": car.id,
+                "model": car.model,
+                "number_plate": car.number_plate,
+                "capacity": car.capacity,
+                "category": car.category,
+                "image_url": car.image_url,
+                "price_per_day": car.price_per_day,
+                "available": car.available,
+                "reserved_by": reservation.user.username if reservation else None,
+                "date_reserved": reservation.start_date if reservation else None,
+                "return_date": reservation.end_date if reservation else None,
+                "amount_paid": reservation.amount_paid if reservation else None,
+                "pickup_location": reservation.pickup_location if reservation else None,
+            })
+        return jsonify(cars_data)
+
+
+api.add_resource(Cars, '/cars')
 
 # # Single car endpoint
 # class CarResource(Resource):
@@ -128,6 +150,13 @@ class DeleteCar(Resource):
         db.session.commit()
         return make_response(jsonify({'message': 'Car deleted successfully'}), 200)
 api.add_resource(DeleteCar, '/cars/delete/<int:car_id>')
+
+# # all users endpoint
+# class Users(Resource):
+#     def get(self):
+#         users = User.query.all()
+#         return jsonify([user.to_dict() for user in users])
+# api.add_resource(Users, '/users')
 
 
 

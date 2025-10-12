@@ -45,7 +45,7 @@ class Car(db.Model, SerializerMixin):
         'Reservation', backref='car', lazy=True, cascade="all, delete-orphan")
     
     # serialize rules
-    serialize_rules = ('-reservation.car', '-reservation.user', '-user.reservation', '-car.reservation',)
+    serialize_rules = ('-reservation.car',)
 
     def __repr__(self):
         return f'<Car {self.make} {self.model} ${self.price_per_day}/day>'

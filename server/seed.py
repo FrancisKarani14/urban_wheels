@@ -9,11 +9,18 @@ with app.app_context():
     db.create_all()
 
     # --- USERS ---
+    sample_names = [
+        "alex", "brian", "chloe", "diana", "ethan", "faith", "george", "hannah",
+        "ian", "julia", "kevin", "linda", "michael", "nora", "oliver", "paula",
+        "quentin", "rachel", "simon", "tina", "victor", "wendy", "xavier",
+        "yasmine", "zoe", "felix", "grace", "harry"
+    ]
+
     users = []
-    for i in range(1, 29):  # 28 normal users
+    for name in sample_names:
         user = User(
-            username=f"user{i}",
-            email=f"user{i}@gmail.com",
+            username=name,
+            email=f"{name}@gmail.com",
             password=generate_password_hash("password123"),
             role="user"
         )
@@ -70,7 +77,7 @@ with app.app_context():
             category=category,
             image_url=f"https://source.unsplash.com/600x400/?{model.replace(' ', '%20')}",
             price_per_day=random.randint(400, 1200),
-            available=True  # all available initially
+            available=True
         )
         cars.append(car)
 
@@ -103,9 +110,7 @@ with app.app_context():
             status=random.choice(["pending", "confirmed", "cancelled"])
         )
 
-        # Mark this car as unavailable
         car.available = False
-
         reservations.append(res)
 
     db.session.add_all(reservations)
