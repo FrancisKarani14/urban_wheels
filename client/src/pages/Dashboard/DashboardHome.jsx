@@ -13,27 +13,24 @@ export default function DashboardHome() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // Replace these endpoints with your actual backend routes
-        const [carsRes, reservationsRes, usersRes] = await Promise.all([
-          fetch("http://localhost:5000/cars"),          // example endpoint
-          fetch("http://localhost:5000/reservations"),  // example endpoint
-          fetch("http://localhost:5000/users"),         // example endpoint
+        const [carsRes, reservationsRes, usersRes, availableRes] = await Promise.all([
+          fetch("http://localhost:5000/cars/count"),
+          fetch("http://localhost:5000/reservations/count"),
+          fetch("http://localhost:5000/users/count"),
+          fetch("http://localhost:5000/cars/available")
         ]);
 
         const cars = await carsRes.json();
         const reservations = await reservationsRes.json();
         const users = await usersRes.json();
+        const available = await availableRes.json();
 
-        const reservedCars = reservations.length;
-        const totalCars = cars.length;
-        const availableCars = totalCars - reservedCars;
-        const totalUsers = users.length;
-
+        // ✅ Extract correct values from the API responses
         setStats({
-          totalCars,
-          reservedCars,
-          availableCars,
-          totalUsers,
+          totalCars: cars.cars_count,
+          reservedCars: reservations.reservations_count,
+          availableCars: available.length, // because this endpoint returns a list
+          totalUsers: users.users_count,
         });
 
         setLoading(false);
@@ -81,22 +78,6 @@ export default function DashboardHome() {
             {loading ? "..." : stats.totalUsers}
           </p>
         </div>
-      </div>
-
-      {/* Recent Activity */}
-      <div className="bg-white p-6 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Recent Reservations</h2>
-        {loading ? (
-          <p className="text-gray-500">Loading recent reservations...</p>
-        ) : (
-          <ul className="divide-y divide-gray-200">
-            {/* Replace with actual recent reservations later */}
-            <li className="py-2 flex justify-between">
-              <span>Data fetched from backend</span>
-              <span className="text-gray-500 text-sm">Soon...</span>
-            </li>
-          </ul>
-        )}
       </div>
 
       {/* System Status */}

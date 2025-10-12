@@ -158,6 +158,12 @@ api.add_resource(DeleteCar, '/cars/delete/<int:car_id>')
 #         return jsonify([user.to_dict() for user in users])
 # api.add_resource(Users, '/users')
 
+# available cars endpoint
+class AvailableCars(Resource):
+    def get(self):
+        cars = Car.query.filter_by(available=True).all()
+        return jsonify([car.to_dict() for car in cars])
+api.add_resource(AvailableCars, '/cars/available')
 
 
 
