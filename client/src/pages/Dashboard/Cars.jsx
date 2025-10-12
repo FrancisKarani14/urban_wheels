@@ -122,7 +122,7 @@ export default function Cars() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this car?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/cars/${id}`, {
+      const res = await fetch(`http://localhost:5000/cars/delete/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete car");
