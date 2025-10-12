@@ -6,7 +6,6 @@ export default function Cars() {
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Form state
   const [formData, setFormData] = useState({
     model: "",
     number_plate: "",
@@ -16,7 +15,7 @@ export default function Cars() {
     price_per_day: "",
   });
 
-  const [editingCarId, setEditingCarId] = useState(null); // for update mode
+  const [editingCarId, setEditingCarId] = useState(null);
 
   // --- Fetch cars and reservations ---
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function Cars() {
           fetch("http://localhost:5000/cars"),
           fetch("http://localhost:5000/reservations"),
         ]);
-
         const carsData = await carsRes.json();
         const reservationsData = await reservationsRes.json();
 
@@ -37,7 +35,6 @@ export default function Cars() {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -78,14 +75,14 @@ export default function Cars() {
     e.preventDefault();
 
     const url = editingCarId
-      ? `http://localhost:5000/cars/${editingCarId}`
-      : "http://localhost:5000/cars";
+      ? `http://localhost:5000/cars/update/${editingCarId}`
+      : "http://localhost:5000/cars/add";
 
-    const method = editingCarId ? "PATCH" : "POST";
+    const method = editingCarId ? "PUT" : "POST";
 
     try {
       const res = await fetch(url, {
-        method: method,
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
@@ -98,11 +95,14 @@ export default function Cars() {
         setCars((prev) =>
           prev.map((car) => (car.id === editingCarId ? data : car))
         );
+        setFilteredCars((prev) =>
+          prev.map((car) => (car.id === editingCarId ? data : car))
+        );
       } else {
         setCars((prev) => [...prev, data]);
+        setFilteredCars((prev) => [...prev, data]);
       }
 
-      setFilteredCars((prev) => [...prev, data]);
       setFormData({
         model: "",
         number_plate: "",
@@ -117,7 +117,6 @@ export default function Cars() {
     }
   };
 
-  // --- Handle Edit Car ---
   const handleEdit = (car) => {
     setFormData({
       model: car.model,
@@ -131,7 +130,6 @@ export default function Cars() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // --- Handle Delete Car ---
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this car?")) return;
 
@@ -150,21 +148,21 @@ export default function Cars() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
         Admin Dashboard
       </h1>
 
       {/* --- Add / Update Car Form --- */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg p-6 mb-10"
+        className="bg-white shadow-md rounded-lg p-4 md:p-6 mb-10"
       >
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">
           {editingCarId ? "Update Car" : "Add New Car"}
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <input
             type="text"
             name="model"
@@ -172,7 +170,7 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Car Model"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
           <input
             type="text"
@@ -181,7 +179,7 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Number Plate"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
           <input
             type="number"
@@ -190,7 +188,7 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Capacity"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
           <input
             type="text"
@@ -199,7 +197,7 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Category (SUV, Sedan...)"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
           <input
             type="url"
@@ -208,7 +206,7 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Image URL"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
           <input
             type="number"
@@ -217,40 +215,42 @@ export default function Cars() {
             onChange={handleChange}
             placeholder="Price per day (Ksh)"
             required
-            className="p-2 border rounded"
+            className="p-2 border rounded w-full"
           />
         </div>
 
-        <button
-          type="submit"
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-        >
-          {editingCarId ? "Update Car" : "Add Car"}
-        </button>
-
-        {editingCarId && (
+        <div className="flex flex-col sm:flex-row items-center sm:justify-start gap-3 mt-4">
           <button
-            type="button"
-            onClick={() => {
-              setEditingCarId(null);
-              setFormData({
-                model: "",
-                number_plate: "",
-                capacity: "",
-                category: "",
-                image_url: "",
-                price_per_day: "",
-              });
-            }}
-            className="mt-4 ml-3 bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded w-full sm:w-auto"
           >
-            Cancel
+            {editingCarId ? "Update Car" : "Add Car"}
           </button>
-        )}
+
+          {editingCarId && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditingCarId(null);
+                setFormData({
+                  model: "",
+                  number_plate: "",
+                  capacity: "",
+                  category: "",
+                  image_url: "",
+                  price_per_day: "",
+                });
+              }}
+              className="bg-gray-400 hover:bg-gray-500 text-white px-5 py-2 rounded w-full sm:w-auto"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
 
       {/* --- Search Bar --- */}
-      <div className="mb-6">
+      <div className="mb-6 flex justify-center md:justify-start">
         <input
           type="text"
           placeholder="Search by car model..."
@@ -262,19 +262,18 @@ export default function Cars() {
 
       {/* --- Cars Table --- */}
       <div className="overflow-x-auto shadow rounded-lg bg-white">
-        <table className="min-w-full border-collapse">
+        <table className="min-w-full border-collapse text-sm md:text-base">
           <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3 border">Image</th>
+            <tr className="text-left">
+            
               <th className="p-3 border">Model</th>
               <th className="p-3 border">Category</th>
-              <th className="p-3 border">Capacity</th>
               <th className="p-3 border">Available</th>
               <th className="p-3 border">Reserved By</th>
               <th className="p-3 border">Pickup</th>
-              <th className="p-3 border">Start Date</th>
-              <th className="p-3 border">Return Date</th>
-              <th className="p-3 border">Amount Paid</th>
+              <th className="p-3 border">Start</th>
+              <th className="p-3 border">Return</th>
+              <th className="p-3 border">Amount</th>
               <th className="p-3 border">Status</th>
               <th className="p-3 border text-center">Actions</th>
             </tr>
@@ -285,23 +284,17 @@ export default function Cars() {
                 key={car.id}
                 className="hover:bg-gray-50 transition duration-150"
               >
-                <td className="p-3 border text-center">
-                  <img
-                    src={car.image_url}
-                    alt={car.model}
-                    className="w-24 h-16 object-cover rounded-md mx-auto"
-                  />
-                </td>
+                
                 <td className="p-3 border font-semibold">{car.model}</td>
                 <td className="p-3 border">{car.category}</td>
-                <td className="p-3 border text-center">{car.capacity}</td>
+                {/* <td className="p-3 border text-center">{car.capacity}</td> */}
                 <td className="p-3 border text-center">
                   {car.reserved ? (
-                    <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs md:text-sm font-semibold">
                       Reserved
                     </span>
                   ) : (
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs md:text-sm font-semibold">
                       Available
                     </span>
                   )}
@@ -316,7 +309,7 @@ export default function Cars() {
                 <td className="p-3 border text-center">
                   {car.status !== "-" ? (
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      className={`px-3 py-1 rounded-full text-xs md:text-sm font-semibold ${
                         car.status === "confirmed"
                           ? "bg-green-100 text-green-700"
                           : car.status === "pending"
@@ -330,16 +323,16 @@ export default function Cars() {
                     "-"
                   )}
                 </td>
-                <td className="p-3 border text-center space-x-2">
+                <td className="p-3 border text-center space-x-1 sm:space-x-2">
                   <button
                     onClick={() => handleEdit(car)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 sm:px-3 py-1 rounded text-xs md:text-sm"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(car.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                    className="bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs md:text-sm"
                   >
                     Delete
                   </button>
