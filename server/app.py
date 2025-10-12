@@ -29,6 +29,20 @@ class CarListResource(Resource):
         return jsonify([car.to_dict() for car in cars])
 api.add_resource(CarListResource, '/cars')
 
+# Single car endpoint
+class CarResource(Resource):
+    def get(self, car_id):
+        car = Car.query.get_or_404(car_id)
+        return jsonify(car.to_dict())
+api.add_resource(CarResource, '/cars/<int:car_id>')
+
+# all reservations endpoint
+class Reservations(Resource):
+    def get(self):
+        reservations = Reservation.query.all()
+        return jsonify([reservation.to_dict() for reservation in reservations])
+api.add_resource(Reservations, '/reservations')
+
 
 
 if __name__ == '__main__':
