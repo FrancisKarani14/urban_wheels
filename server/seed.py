@@ -33,14 +33,14 @@ with app.app_context():
         password=generate_password_hash("adminpass"),
         role="admin"
     )
-    admin2 = User(
-        username="admin2",
+    Karani = User(
+        username="Karani",
         email="admin2@urbanwheels.com",
-        password=generate_password_hash("adminpass"),
+        password=generate_password_hash("karani123"),
         role="admin"
     )
 
-    users.extend([admin1, admin2])
+    users.extend([admin1, Karani])
     db.session.add_all(users)
     db.session.commit()
 

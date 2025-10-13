@@ -9,7 +9,7 @@ function Book() {
     <div>
       <Navbar />
       <List />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   )
