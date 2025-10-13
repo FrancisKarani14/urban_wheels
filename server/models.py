@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+from werkzeug.security import check_password_hash
 
 db = SQLAlchemy()
 
@@ -21,6 +22,14 @@ class User(db.Model, SerializerMixin):
     
     # serialize rules
     serialize_rules = ('-password', '-reservation.user', '-reservation.car', '-car.reservation', '-user.reservation',)
+
+    # check password method
+    def set_password(self, password):
+        from werkzeug.security import generate_password_hash
+        self.password = generate_password_hash(password)    
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return f'<User {self.username}, {self.email}, {self.role}>'
