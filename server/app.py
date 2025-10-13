@@ -165,6 +165,42 @@ class AvailableCars(Resource):
         return jsonify([car.to_dict() for car in cars])
 api.add_resource(AvailableCars, '/cars/available')
 
+# jwt setup
+app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
+jwt = JWTManager(app)
+
+# user registration endpoint password with hashing creating token
+class Register(Resource):
+    def post(self):
+        data = request.get_json()
+        if User.query.filter_by(username=data['username']).first():
+            return make_response(jsonify({'message': 'Username already exists'}), 400)
+        new_user = User(
+            username=data['username'],
+            email=data['email']
+        )
+        new_user.set_password(data['password'])
+        db.session.add(new_user)
+        db.session.commit()
+        access_token = create_access_token(identity=new_user.id)
+        return make_response(jsonify({'message': 'User registered successfully', 'access_token': access_token}), 201)
+api.add_resource(Register, '/register')
+ 
+
+# user login endpoint giving token
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        user = User.query.filter_by(username=data['username']).first()
+        if user and user.check_password(data['password']):
+            access_token = create_access_token(identity=user.id)
+            return make_response(jsonify({'message': 'Login successful', 'access_token': access_token}), 200)
+        return make_response(jsonify({'message': 'Invalid credentials'}), 401)
+api.add_resource(Login, '/login')
+
+
+
+
 
 
 
