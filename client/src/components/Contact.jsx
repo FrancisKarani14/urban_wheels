@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useLocation } from 'react-router-dom';
+import Navbar from './Navbar';
 
 function Contact() {
   const location = useLocation();
@@ -99,7 +100,7 @@ function Contact() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4 md:p-10" id="contact-form">
-
+      <Navbar />
       {/* Image Side */}
       <img 
         src="https://media.istockphoto.com/id/1597068908/photo/porsche-panamera-hybrid-electric-car.jpg?s=612x612&w=0&k=20&c=PETfzIJUGijdmFLembrlUzYthRMw46JH3FAzTx5PmeY=" 
