@@ -7,7 +7,7 @@ function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[#0c0a0925] backdrop-blur-md">
+    <header className="fixed top-0 left-0 w-full z-50 bg-[black] backdrop-blur-md">
       <div className="flex items-center justify-between px-6 md:px-16 py-3">
         {/* Logo */}
         <h1 className="font-bold text-2xl text-[#05DF72]">
@@ -20,9 +20,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            { to: "/Dashboard", label: "Dashboard" },
-            { to: "/login", label: "Login" },
-            { to: "/Signup", label: "Signup" },
+            { to: "/login", label: "Get Started" },
           ].map(({ to, label }) => (
             <NavLink
               key={to}
@@ -51,9 +49,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            { to: "/Dashboard", label: "Dashboard" },
-            { to: "/login", label: "Login" },
-            { to: "/Signup", label: "Signup" },
+            { to: "/login", label: "Get Started" },
           ].map(({ to, label }) => (
             <NavLink
               key={to}

@@ -18,7 +18,7 @@ import Users from "./pages/Dashboard/Users";
 
 function App() {
   return (
-    <div className="bg-[#292524] min-h-screen">
+    <div className="bg-[#292524] min-h-screen max-w-full overflow-x-hidden">
       <Routes>
         {/* --- Public Routes --- */}
         <Route path="/" element={<Landing />} />
