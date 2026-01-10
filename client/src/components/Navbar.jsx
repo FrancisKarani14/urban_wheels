@@ -29,7 +29,7 @@ function Navbar() {
       <div className="flex items-center justify-between px-6 md:px-16 py-3">
         {/* Logo */}
         <h1 className="font-bold text-2xl text-[#05DF72]">
-          Urban_<span className="text-[#FFDF20]">Wheels</span>
+          Urban_<span className="text-[#FFDB58]">Wheels</span>
         </h1>
 
         {/* Desktop Nav - Centered */}
@@ -46,7 +46,7 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "text-[#05DF72] font-semibold"
-                  : "text-[#EEF2FF] hover:text-[#FFD230] font-semibold transition-colors"
+                  : "text-[#EEF2FF] hover:text-[#FFDB58] font-semibold transition-colors"
               }
             >
               {label}
