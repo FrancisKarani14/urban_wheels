@@ -47,7 +47,7 @@ class Car(db.Model, SerializerMixin):
     available = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(
-        db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+    db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     # relationships
     reservation = db.relationship(

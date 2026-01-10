@@ -5,7 +5,7 @@ import About from "./pages/About";
 import Book from "./pages/Book";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Reserve from "./components/Reserve";
+// import Reserve from "./components/Reserve";
 import Contact from "./components/Contact";
 
 
