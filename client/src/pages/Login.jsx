@@ -25,8 +25,9 @@ export default function Login() {
       const data = await res.json()
 
       if (res.ok) {
-        // ✅ Save token
-        localStorage.setItem('token', data.access_token)
+        // ✅ Save token and user info
+        localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('user_email', username) // Store username as email
 
         // ✅ Update auth context (if used)
         login(data.access_token)
