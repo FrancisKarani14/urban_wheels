@@ -30,6 +30,7 @@ export default function Login() {
         // ✅ Save token and user info
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('user_email', username) // Store username as email
+        localStorage.setItem('user_role', data.user.role) // Store user role
 
         // ✅ Update auth context (if used)
         login(data.access_token)

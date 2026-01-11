@@ -10,6 +10,7 @@ function Navbar() {
   
   const isLoggedIn = localStorage.getItem('access_token');
   const userEmail = localStorage.getItem('user_email') || '';
+  const userRole = localStorage.getItem('user_role') || 'user';
   
   const getInitials = (email) => {
     if (!email) return 'U';
@@ -20,6 +21,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_email');
+    localStorage.removeItem('user_role');
     setShowDropdown(false);
     navigate('/');
   };
@@ -38,7 +40,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            ...(isLoggedIn ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+            ...(isLoggedIn && userRole === 'admin' ? [{ to: "/dashboard", label: "Dashboard" }] : []),
           ].map(({ to, label }) => (
             <NavLink
               key={to}
@@ -97,7 +99,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            ...(isLoggedIn ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+            ...(isLoggedIn && userRole === 'admin' ? [{ to: "/dashboard", label: "Dashboard" }] : []),
           ].map(({ to, label }) => (
             <NavLink
               key={to}

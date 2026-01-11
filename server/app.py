@@ -194,7 +194,16 @@ class Login(Resource):
         user = User.query.filter_by(username=data['username']).first()
         if user and user.check_password(data['password']):
             access_token = create_access_token(identity=user.id)
-            return make_response(jsonify({'message': 'Login successful', 'access_token': access_token}), 200)
+            return make_response(jsonify({
+                'message': 'Login successful', 
+                'access_token': access_token,
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'role': user.role
+                }
+            }), 200)
         return make_response(jsonify({'message': 'Invalid credentials'}), 401)
 api.add_resource(Login, '/login')
 

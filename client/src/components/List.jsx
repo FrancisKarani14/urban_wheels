@@ -25,10 +25,18 @@ function List() {
 
   const handleReserve = (car) => {
     const isLoggedIn = localStorage.getItem('access_token');
+    const userRole = localStorage.getItem('user_role');
+    
     if (!isLoggedIn) {
       navigate('/login');
       return;
     }
+    
+    if (userRole === 'admin') {
+      alert('Admins cannot reserve cars');
+      return;
+    }
+    
     navigate("/contact", { state: { car } });
   };
 

@@ -1,10 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import DashSidebar from "./DashSidebar";
 
 export default function DashboardLayout() {
+  const userRole = localStorage.getItem('user_role');
+  const isLoggedIn = localStorage.getItem('access_token');
+  
+  if (!isLoggedIn || userRole !== 'admin') {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar stays fixed */}
