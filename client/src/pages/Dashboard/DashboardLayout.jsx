@@ -6,20 +6,18 @@ import DashSidebar from "./DashSidebar";
 
 export default function DashboardLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       {/* Navbar stays fixed */}
       <Navbar />
 
       {/* Main dashboard area */}
-      <div className="flex flex-1 pt-16"> {/* pt-16 = offset for fixed navbar */}
+      <div className="flex pt-16"> {/* pt-16 = offset for fixed navbar */}
         <DashSidebar />
         
-        <main className="flex-1 p-4 text-gray-900">
+        <main className="flex-1 overflow-y-auto max-h-screen p-4 text-gray-900">
           <Outlet /> {/* renders nested dashboard pages */}
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

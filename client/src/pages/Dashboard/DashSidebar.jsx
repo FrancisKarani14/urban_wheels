@@ -13,7 +13,7 @@ export default function DashSidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/dashboard/home" },
+    { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/dashboard" },
     { name: "Cars", icon: <Car size={20} />, path: "/dashboard/cars" },
     { name: "Reservations", icon: <CalendarCheck size={20} />, path: "/dashboard/reservations" },
     { name: "Users", icon: <Users size={20} />, path: "/dashboard/users" },
@@ -31,7 +31,7 @@ export default function DashSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-16 left-0 bg-gray-900 text-white w-64 h-[calc(100vh-4rem)] overflow-y-auto transform ${
+        className={`fixed md:sticky md:top-16 top-16 left-0 bg-gray-900 text-white w-64 h-[calc(100vh-4rem)] overflow-y-auto transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-xl`}
       >
