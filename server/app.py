@@ -183,7 +183,16 @@ class Register(Resource):
         db.session.add(new_user)
         db.session.commit()
         access_token = create_access_token(identity=new_user.id)
-        return make_response(jsonify({'message': 'User registered successfully', 'access_token': access_token}), 201)
+        return make_response(jsonify({
+            'message': 'User registered successfully', 
+            'access_token': access_token,
+            'user': {
+                'id': new_user.id,
+                'username': new_user.username,
+                'email': new_user.email,
+                'role': new_user.role
+            }
+        }), 201)
 api.add_resource(Register, '/register')
  
 

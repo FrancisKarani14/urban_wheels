@@ -15,6 +15,8 @@ import DashboardHome from "./pages/Dashboard/DashboardHome";
 import Cars from "./pages/Dashboard/Cars";
 import Reservations from "./pages/Dashboard/Reservations";
 import Users from "./pages/Dashboard/Users";
+import MyReservations from "./pages/Dashboard/MyReservations";
+import Notifications from "./pages/Dashboard/Notifications";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           <Route path="cars" element={<Cars />} />
           <Route path="reservations" element={<Reservations />} />
           <Route path="users" element={<Users />} />
+          <Route path="my-reservations" element={<MyReservations />} />
+          <Route path="notifications" element={<Notifications />} />
         </Route>
       </Routes>
     </div>

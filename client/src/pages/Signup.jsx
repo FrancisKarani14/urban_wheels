@@ -38,6 +38,10 @@ export default function Signup() {
 
       if (response.ok) {
         login(data.access_token); // ✅ store token via context
+        localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('user_email', data.user.email)
+        localStorage.setItem('user_role', data.user.role)
+        localStorage.setItem('user_id', data.user.id)
         setSuccess('Account created successfully!');
         setTimeout(() => navigate('/dashboard'), 1000); // redirect after 1s
       } else {

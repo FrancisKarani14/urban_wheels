@@ -22,6 +22,7 @@ function Navbar() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_email');
     localStorage.removeItem('user_role');
+    localStorage.removeItem('user_id');
     setShowDropdown(false);
     navigate('/');
   };
@@ -40,7 +41,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            ...(isLoggedIn && userRole === 'admin' ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+            ...(isLoggedIn ? [{ to: "/dashboard", label: "Dashboard" }] : []),
           ].map(({ to, label }) => (
             <NavLink
               key={to}
@@ -99,7 +100,7 @@ function Navbar() {
             { to: "/", label: "Home" },
             { to: "/about", label: "About" },
             { to: "/book", label: "Book Now" },
-            ...(isLoggedIn && userRole === 'admin' ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+            ...(isLoggedIn ? [{ to: "/dashboard", label: "Dashboard" }] : []),
           ].map(({ to, label }) => (
             <NavLink
               key={to}
