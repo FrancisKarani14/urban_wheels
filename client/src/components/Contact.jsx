@@ -52,8 +52,14 @@ function Contact() {
       }
 
       // ✅ Create reservation
+      const userId = localStorage.getItem('user_id');
+      if (!userId) {
+        alert("Please log in to make a reservation.");
+        return;
+      }
+
       const newReservation = {
-        user_id: 1, // for now, a static user or replace with logged-in user's id
+        user_id: parseInt(userId),
         car_id: carFromState.id,
         start_date: formData.start_date,
         end_date: formData.end_date,
