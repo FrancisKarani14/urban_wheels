@@ -13,7 +13,7 @@ function Landing() {
       <Hero />
       <Landing_Cars />
       <Process />
-      {/* <Testimonials /> */}
+      <Testimonials />
       <Footer />
     </div>
   )
