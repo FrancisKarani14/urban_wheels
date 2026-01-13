@@ -49,7 +49,7 @@ function Landing_Cars() {
   ]
   return (
     <div className='bg-[#F8FAFC] '>
-      <div className='grid grid-cols-1 md:grid-cols-3 text-center bg-[#FFDF20] justify-center gap-20 px-16'>
+      <div className='grid grid-cols-1 md:grid-cols-3 text-center bg-[#FFDF20] justify-center gap-20 px-16 pt-5 pb-5'>
         <section className='flex-col w-75'>
           <h1 className='font-bold '>Well Maintained vehicles</h1>
           <p>All our cars are thoroughly inspected and maintained for smooth and reliable driving</p>

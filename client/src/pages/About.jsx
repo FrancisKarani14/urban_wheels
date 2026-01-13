@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import About_us from '../components/About_us'
 import Solutions from '../components/Solutions'
-import Testimonials from '../components/Testimonials'
 import FAQ from '../components/Faq'
 function About() {
   return (
@@ -11,7 +10,6 @@ function About() {
       <Navbar />
       <About_us />
       <Solutions />
-      <Testimonials />
       <FAQ />
       <Footer />
       
