@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Eye, X } from 'lucide-react'
+import { Eye, X, Plus, Edit, Trash2 } from 'lucide-react'
 
 export default function Cars() {
   const [cars, setCars] = useState([])
@@ -8,6 +8,16 @@ export default function Cars() {
   const [loading, setLoading] = useState(true)
   const [selectedCar, setSelectedCar] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [showFormModal, setShowFormModal] = useState(false)
+  const [editingCar, setEditingCar] = useState(null)
+  const [formData, setFormData] = useState({
+    model: '',
+    number_plate: '',
+    capacity: '',
+    category: '',
+    image_url: '',
+    price_per_day: ''
+  })
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -34,6 +44,93 @@ export default function Cars() {
     setShowModal(false)
   }
 
+  const openFormModal = (car = null) => {
+    if (car) {
+      setEditingCar(car)
+      setFormData({
+        model: car.model,
+        number_plate: car.number_plate,
+        capacity: car.capacity,
+        category: car.category,
+        image_url: car.image_url,
+        price_per_day: car.price_per_day
+      })
+    } else {
+      setEditingCar(null)
+      setFormData({
+        model: '',
+        number_plate: '',
+        capacity: '',
+        category: '',
+        image_url: '',
+        price_per_day: ''
+      })
+    }
+    setShowFormModal(true)
+  }
+
+  const closeFormModal = () => {
+    setShowFormModal(false)
+    setEditingCar(null)
+    setFormData({
+      model: '',
+      number_plate: '',
+      capacity: '',
+      category: '',
+      image_url: '',
+      price_per_day: ''
+    })
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const url = editingCar 
+      ? `http://localhost:5000/cars/update/${editingCar.id}`
+      : 'http://localhost:5000/cars/add'
+    const method = editingCar ? 'PUT' : 'POST'
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      
+      if (response.ok) {
+        const updatedCar = await response.json()
+        if (editingCar) {
+          setCars(prev => prev.map(car => car.id === editingCar.id ? updatedCar : car))
+        } else {
+          setCars(prev => [...prev, updatedCar])
+        }
+        closeFormModal()
+      }
+    } catch (error) {
+      console.error('Error saving car:', error)
+    }
+  }
+
+  const handleDelete = async (carId) => {
+    if (!window.confirm('Are you sure you want to delete this car?')) return
+    
+    try {
+      const response = await fetch(`http://localhost:5000/cars/delete/${carId}`, {
+        method: 'DELETE'
+      })
+      
+      if (response.ok) {
+        setCars(prev => prev.filter(car => car.id !== carId))
+      }
+    } catch (error) {
+      console.error('Error deleting car:', error)
+    }
+  }
+
   // Pagination logic
   const indexOfLastCar = currentPage * carsPerPage
   const indexOfFirstCar = indexOfLastCar - carsPerPage
@@ -48,7 +145,16 @@ export default function Cars() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Cars Management</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Cars Management</h1>
+        <button
+          onClick={() => openFormModal()}
+          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+        >
+          <Plus size={20} />
+          Add New Car
+        </button>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {currentCars.map((car) => (
@@ -71,13 +177,27 @@ export default function Cars() {
               <p className="text-gray-600 text-sm mb-1">{car.category} • {car.capacity} seats</p>
               <p className="text-green-600 font-semibold mb-3">${car.price_per_day}/day</p>
               
-              <button
-                onClick={() => openModal(car)}
-                className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
-              >
-                <Eye size={16} />
-                View Details
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => openModal(car)}
+                  className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+                >
+                  <Eye size={16} />
+                  View
+                </button>
+                <button
+                  onClick={() => openFormModal(car)}
+                  className="p-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition"
+                >
+                  <Edit size={16} />
+                </button>
+                <button
+                  onClick={() => handleDelete(car.id)}
+                  className="p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -165,6 +285,95 @@ export default function Cars() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Form Modal */}
+      {showFormModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg w-96">
+            <div className="flex justify-between items-center p-4 border-b">
+              <h2 className="text-lg font-bold">{editingCar ? 'Edit Car' : 'Add Car'}</h2>
+              <button onClick={closeFormModal} className="text-gray-500 hover:text-gray-700">
+                <X size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="p-4">
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  name="model"
+                  value={formData.model}
+                  onChange={handleInputChange}
+                  placeholder="Model"
+                  className="p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                <input
+                  type="text"
+                  name="number_plate"
+                  value={formData.number_plate}
+                  onChange={handleInputChange}
+                  placeholder="Plate"
+                  className="p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                <input
+                  type="number"
+                  name="capacity"
+                  value={formData.capacity}
+                  onChange={handleInputChange}
+                  placeholder="Seats"
+                  className="p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  placeholder="Category"
+                  className="p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                <input
+                  type="number"
+                  name="price_per_day"
+                  value={formData.price_per_day}
+                  onChange={handleInputChange}
+                  placeholder="Price/day"
+                  className="p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+              </div>
+              <input
+                type="url"
+                name="image_url"
+                value={formData.image_url}
+                onChange={handleInputChange}
+                placeholder="Image URL"
+                className="w-full p-2 border rounded text-sm mt-3 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                required
+              />
+              
+              <div className="flex gap-2 mt-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-600 text-white py-2 px-3 rounded text-sm hover:bg-blue-700 transition"
+                >
+                  {editingCar ? 'Update' : 'Add'}
+                </button>
+                <button
+                  type="button"
+                  onClick={closeFormModal}
+                  className="flex-1 bg-gray-500 text-white py-2 px-3 rounded text-sm hover:bg-gray-600 transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
