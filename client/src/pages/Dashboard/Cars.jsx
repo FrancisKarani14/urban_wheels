@@ -3,6 +3,8 @@ import { Eye, X } from 'lucide-react'
 
 export default function Cars() {
   const [cars, setCars] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const carsPerPage = 8
   const [loading, setLoading] = useState(true)
   const [selectedCar, setSelectedCar] = useState(null)
   const [showModal, setShowModal] = useState(false)
@@ -32,6 +34,14 @@ export default function Cars() {
     setShowModal(false)
   }
 
+  // Pagination logic
+  const indexOfLastCar = currentPage * carsPerPage
+  const indexOfFirstCar = indexOfLastCar - carsPerPage
+  const currentCars = cars.slice(indexOfFirstCar, indexOfLastCar)
+  const totalPages = Math.ceil(cars.length / carsPerPage)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
   if (loading) {
     return <div className="p-6"><p>Loading cars...</p></div>
   }
@@ -41,7 +51,7 @@ export default function Cars() {
       <h1 className="text-2xl font-bold mb-6">Cars Management</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {cars.map((car) => (
+        {currentCars.map((car) => (
           <div key={car.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="relative">
               <img
@@ -72,6 +82,29 @@ export default function Cars() {
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center mt-8 gap-4">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 rounded-md transition bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-gray-700 font-medium">
+            {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 rounded-md transition bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       {/* Modal */}
       {showModal && selectedCar && (
