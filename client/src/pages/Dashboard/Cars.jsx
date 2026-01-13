@@ -10,6 +10,12 @@ export default function Cars() {
   const [showModal, setShowModal] = useState(false)
   const [showFormModal, setShowFormModal] = useState(false)
   const [editingCar, setEditingCar] = useState(null)
+  const [filters, setFilters] = useState({
+    model: '',
+    capacity: '',
+    category: '',
+    available: ''
+  })
   const [formData, setFormData] = useState({
     model: '',
     number_plate: '',
@@ -131,13 +137,34 @@ export default function Cars() {
     }
   }
 
+  // Filter logic
+  const filteredCars = cars.filter(car => {
+    return (
+      car.model.toLowerCase().includes(filters.model.toLowerCase()) &&
+      (filters.capacity === '' || car.capacity.toString() === filters.capacity) &&
+      car.category.toLowerCase().includes(filters.category.toLowerCase()) &&
+      (filters.available === '' || car.available.toString() === filters.available)
+    );
+  });
+
   // Pagination logic
   const indexOfLastCar = currentPage * carsPerPage
   const indexOfFirstCar = indexOfLastCar - carsPerPage
-  const currentCars = cars.slice(indexOfFirstCar, indexOfLastCar)
-  const totalPages = Math.ceil(cars.length / carsPerPage)
+  const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar)
+  const totalPages = Math.ceil(filteredCars.length / carsPerPage)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({ ...prev, [name]: value }));
+    setCurrentPage(1);
+  };
+
+  const clearFilters = () => {
+    setFilters({ model: '', capacity: '', category: '', available: '' });
+    setCurrentPage(1);
+  };
 
   if (loading) {
     return <div className="p-6"><p>Loading cars...</p></div>
@@ -156,8 +183,64 @@ export default function Cars() {
         </button>
       </div>
       
+      {/* Filters */}
+      <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <input
+            type="text"
+            name="model"
+            value={filters.model}
+            onChange={handleFilterChange}
+            placeholder="Search by model"
+            className="px-3 py-2 border rounded-md focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          />
+          <select
+            name="capacity"
+            value={filters.capacity}
+            onChange={handleFilterChange}
+            className="px-3 py-2 border rounded-md focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          >
+            <option value="">All Capacities</option>
+            <option value="2">2 Seats</option>
+            <option value="4">4 Seats</option>
+            <option value="5">5 Seats</option>
+            <option value="7">7 Seats</option>
+            <option value="8">8 Seats</option>
+          </select>
+          <input
+            type="text"
+            name="category"
+            value={filters.category}
+            onChange={handleFilterChange}
+            placeholder="Search by category"
+            className="px-3 py-2 border rounded-md focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          />
+          <select
+            name="available"
+            value={filters.available}
+            onChange={handleFilterChange}
+            className="px-3 py-2 border rounded-md focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          >
+            <option value="">All Status</option>
+            <option value="true">Available</option>
+            <option value="false">Reserved</option>
+          </select>
+          <button
+            onClick={clearFilters}
+            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+          >
+            Clear Filters
+          </button>
+        </div>
+      </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {currentCars.map((car) => (
+        {currentCars.length === 0 ? (
+          <div className="col-span-full text-center text-gray-500 py-8">
+            {filteredCars.length === 0 && cars.length > 0 ? 'No cars match your filters.' : 'No cars available.'}
+          </div>
+        ) : (
+          currentCars.map((car) => (
           <div key={car.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="relative">
               <img
@@ -200,7 +283,8 @@ export default function Cars() {
               </div>
             </div>
           </div>
-        ))}
+        ))
+        )}
       </div>
 
       {/* Pagination */}
