@@ -1,23 +1,46 @@
 import React, { useState, useEffect } from 'react'
+import { Check, X } from 'lucide-react'
 
 export default function Reservations() {
   const [reservations, setReservations] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/reservations')
-        const data = await response.json()
-        setReservations(data)
-      } catch (error) {
-        console.error('Error fetching reservations:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
     fetchReservations()
   }, [])
+
+  const fetchReservations = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/reservations')
+      const data = await response.json()
+      setReservations(data)
+    } catch (error) {
+      console.error('Error fetching reservations:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateReservationStatus = async (reservationId, status) => {
+    try {
+      const response = await fetch(`http://localhost:5000/reservations/update/${reservationId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      })
+      
+      if (response.ok) {
+        // Update local state
+        setReservations(prev => 
+          prev.map(res => 
+            res.id === reservationId ? { ...res, status } : res
+          )
+        )
+      }
+    } catch (error) {
+      console.error('Error updating reservation:', error)
+    }
+  }
 
   if (loading) {
     return <div className="p-6"><p>Loading reservations...</p></div>
@@ -39,6 +62,7 @@ export default function Reservations() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -60,6 +84,29 @@ export default function Reservations() {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{reservation.pickup_location}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  {reservation.status === 'pending' && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => updateReservationStatus(reservation.id, 'confirmed')}
+                        className="flex items-center gap-1 bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700 transition"
+                      >
+                        <Check size={16} />
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => updateReservationStatus(reservation.id, 'cancelled')}
+                        className="flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
+                      >
+                        <X size={16} />
+                        Reject
+                      </button>
+                    </div>
+                  )}
+                  {reservation.status !== 'pending' && (
+                    <span className="text-gray-500 text-sm">No actions available</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

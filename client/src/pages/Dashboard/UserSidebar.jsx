@@ -6,10 +6,12 @@ import {
   Bell,
   Menu,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-export default function UserSidebar() {
+export default function UserSidebar({ collapsed, setCollapsed }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
@@ -30,13 +32,19 @@ export default function UserSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:sticky md:top-16 top-16 left-0 bg-gray-900 text-white w-64 h-screen overflow-y-auto transform ${
+        className={`fixed md:sticky md:top-16 top-16 left-0 bg-gray-900 text-white ${collapsed ? 'w-16' : 'w-64'} h-screen overflow-y-auto transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-xl`}
+        } md:translate-x-0 transition-all duration-300 ease-in-out z-40 shadow-xl`}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-center h-16 border-b border-gray-700 mt-16">
-          <h1 className="text-xl font-bold text-[#FFD230]">My Dashboard</h1>
+        <div className="flex items-center justify-between h-16 border-b border-gray-700 mt-16 px-4">
+          {!collapsed && <h1 className="text-xl font-bold text-[#FFD230]">My Dashboard</h1>}
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="hidden md:block p-2 rounded-lg hover:bg-gray-800 transition"
+          >
+            {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          </button>
         </div>
 
         {/* Navigation Links */}
@@ -50,12 +58,13 @@ export default function UserSidebar() {
                   isActive
                     ? "bg-[#FFD230] text-gray-900"
                     : "text-gray-300 hover:bg-gray-800 hover:text-[#FFD230]"
-                }`
+                } ${collapsed ? 'justify-center px-4' : ''}`
               }
               onClick={() => setIsOpen(false)}
+              title={collapsed ? link.name : ''}
             >
               {link.icon}
-              {link.name}
+              {!collapsed && link.name}
             </NavLink>
           ))}
         </nav>
