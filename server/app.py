@@ -71,6 +71,34 @@ def standardize_error(message, status_code=400):
 def home():
     return jsonify({'message': 'Welcome to Urban Wheels API!', 'status': 'healthy'})
 
+@app.route('/seed-admin')
+def seed_admin():
+    try:
+        # Check if admin already exists
+        existing_admin = User.query.filter_by(username='admin').first()
+        if existing_admin:
+            return jsonify({'message': 'Admin already exists'})
+        
+        # Create admin user
+        admin = User(
+            username="admin",
+            email="admin@urbanwheels.com",
+            role="admin"
+        )
+        admin.set_password("admin123")
+        
+        db.session.add(admin)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Admin user created successfully',
+            'username': 'admin',
+            'password': 'admin123',
+            'email': 'admin@urbanwheels.com'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/health')
 def health():
     return jsonify({'status': 'healthy', 'service': 'Urban Wheels API'})
