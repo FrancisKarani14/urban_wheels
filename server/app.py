@@ -142,6 +142,17 @@ class UpdateCar(Resource):
         return make_response(jsonify(car.to_dict()), 200)
 api.add_resource(UpdateCar, '/cars/update/<int:car_id>')
 
+# updates reservation status endpoint
+class UpdateReservationStatus(Resource):
+    def put(self, reservation_id):
+        reservation = Reservation.query.get_or_404(reservation_id)
+        data = request.get_json()
+        
+        reservation.status = data.get('status', reservation.status)
+        db.session.commit()
+        return make_response(jsonify(reservation.to_dict()), 200)
+api.add_resource(UpdateReservationStatus, '/reservations/update/<int:reservation_id>')
+
 # deletes car endpoint
 class DeleteCar(Resource):
     def delete(self, car_id):
