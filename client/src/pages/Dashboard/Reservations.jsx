@@ -11,7 +11,7 @@ export default function Reservations() {
 
   const fetchReservations = async () => {
     try {
-      const response = await fetch('http://localhost:5000/reservations')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reservations`)
       const data = await response.json()
       setReservations(data)
     } catch (error) {
@@ -23,7 +23,7 @@ export default function Reservations() {
 
   const updateReservationStatus = async (reservationId, status) => {
     try {
-      const response = await fetch(`http://localhost:5000/reservations/update/${reservationId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reservations/update/${reservationId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })

@@ -18,7 +18,7 @@ function List() {
     AOS.init({ duration: 1000 });
     const fetchCars = async () => {
       try {
-        const response = await fetch("http://localhost:5000/cars");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cars`);
         const data = await response.json();
         setCars(data);
       } catch (error) {

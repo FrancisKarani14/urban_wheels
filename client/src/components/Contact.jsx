@@ -68,7 +68,7 @@ function Contact() {
         status: "pending",
       };
 
-      const res = await fetch("http://localhost:5000/reservations/add", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/reservations/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newReservation),
@@ -77,7 +77,7 @@ function Contact() {
       if (!res.ok) throw new Error("Reservation failed");
 
       // ✅ Mark car unavailable
-      await fetch(`http://localhost:5000/cars/update/${carFromState.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/cars/update/${carFromState.id}`, {
   method: "PUT", // 👈 your Flask endpoint uses PUT, not PATCH
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ available: false }),

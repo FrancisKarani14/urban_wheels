@@ -28,7 +28,7 @@ export default function Cars() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:5000/cars')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cars`)
         const data = await response.json()
         setCars(data)
       } catch (error) {
@@ -96,8 +96,8 @@ export default function Cars() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const url = editingCar 
-      ? `http://localhost:5000/cars/update/${editingCar.id}`
-      : 'http://localhost:5000/cars/add'
+      ? `${import.meta.env.VITE_API_URL}/cars/update/${editingCar.id}`
+      : `${import.meta.env.VITE_API_URL}/cars/add`
     const method = editingCar ? 'PUT' : 'POST'
 
     try {
@@ -125,7 +125,7 @@ export default function Cars() {
     if (!window.confirm('Are you sure you want to delete this car?')) return
     
     try {
-      const response = await fetch(`http://localhost:5000/cars/delete/${carId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/cars/delete/${carId}`, {
         method: 'DELETE'
       })
       

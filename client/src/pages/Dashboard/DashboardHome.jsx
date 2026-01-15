@@ -19,10 +19,10 @@ export default function DashboardHome() {
       try {
         if (userRole === 'admin') {
           const [carsRes, reservationsRes, usersRes, availableRes] = await Promise.all([
-            fetch("http://localhost:5000/cars/count"),
-            fetch("http://localhost:5000/reservations/count"),
-            fetch("http://localhost:5000/users/count"),
-            fetch("http://localhost:5000/cars/available")
+            fetch(`${import.meta.env.VITE_API_URL}/cars/count`),
+            fetch(`${import.meta.env.VITE_API_URL}/reservations/count`),
+            fetch(`${import.meta.env.VITE_API_URL}/users/count`),
+            fetch(`${import.meta.env.VITE_API_URL}/cars/available`)
           ]);
 
           const cars = await carsRes.json();
@@ -38,7 +38,7 @@ export default function DashboardHome() {
           });
         } else {
           // User dashboard - fetch user-specific data
-          const reservationsRes = await fetch("http://localhost:5000/reservations");
+          const reservationsRes = await fetch(`${import.meta.env.VITE_API_URL}/reservations`);
           const allReservations = await reservationsRes.json();
           
           const userReservations = allReservations.filter(res => res.user_id == userId);

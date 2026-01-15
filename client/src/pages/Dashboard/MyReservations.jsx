@@ -7,7 +7,7 @@ export default function MyReservations() {
   useEffect(() => {
     const fetchMyReservations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/reservations')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/reservations`)
         const data = await response.json()
         const userId = localStorage.getItem('user_id')
         const myReservations = data.filter(res => res.user_id == userId)
