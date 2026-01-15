@@ -16,6 +16,7 @@ sqlalchemy-serializer = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 
