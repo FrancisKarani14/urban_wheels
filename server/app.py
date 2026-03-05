@@ -73,32 +73,69 @@ def standardize_error(message, status_code=400):
 def home():
     return jsonify({'message': 'Welcome to Urban Wheels API!', 'status': 'healthy'})
 
-@app.route('/seed-admin')
-def seed_admin():
+@app.route('/seed-database')
+def seed_database():
     try:
         # Check if admin already exists
-        existing_admin = User.query.filter_by(username='admin').first()
-        if existing_admin:
-            return jsonify({'message': 'Admin already exists'})
+        admin = User.query.filter_by(username='admin').first()
+        if not admin:
+            admin = User(username="admin", email="admin@gmail.com", role="admin")
+            admin.set_password("admin")
+            db.session.add(admin)
+            admin_created = True
+        else:
+            admin_created = False
         
-        # Create admin user
-        admin = User(
-            username="admin",
-            email="admin@urbanwheels.com",
-            role="admin"
-        )
-        admin.set_password("admin123")
+        # Check if cars already exist
+        existing_cars = Car.query.count()
+        if existing_cars >= 20:
+            cars_added = 0
+        else:
+            cars = [
+                {"model": "Toyota Camry", "number_plate": "KCA-001A", "capacity": 5, "category": "Sedan", "price_per_day": 50.0, "image_url": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb"},
+                {"model": "Honda CR-V", "number_plate": "KCB-002B", "capacity": 5, "category": "SUV", "price_per_day": 65.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "BMW X5", "number_plate": "KCC-003C", "capacity": 7, "category": "Luxury SUV", "price_per_day": 120.0, "image_url": "https://images.unsplash.com/photo-1555215695-3004980ad54e"},
+                {"model": "Mercedes-Benz E-Class", "number_plate": "KCD-004D", "capacity": 5, "category": "Luxury Sedan", "price_per_day": 110.0, "image_url": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8"},
+                {"model": "Ford Mustang", "number_plate": "KCE-005E", "capacity": 4, "category": "Sports", "price_per_day": 95.0, "image_url": "https://images.unsplash.com/photo-1584345604476-8ec5f5d3e0c0"},
+                {"model": "Nissan Rogue", "number_plate": "KCF-006F", "capacity": 5, "category": "SUV", "price_per_day": 60.0, "image_url": "https://images.unsplash.com/photo-1609521263047-f8f205293f24"},
+                {"model": "Audi A4", "number_plate": "KCG-007G", "capacity": 5, "category": "Luxury Sedan", "price_per_day": 100.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Chevrolet Tahoe", "number_plate": "KCH-008H", "capacity": 8, "category": "SUV", "price_per_day": 85.0, "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b"},
+                {"model": "Tesla Model 3", "number_plate": "KCI-009I", "capacity": 5, "category": "Electric Sedan", "price_per_day": 90.0, "image_url": "https://images.unsplash.com/photo-1560958089-b8a1929cea89"},
+                {"model": "Jeep Wrangler", "number_plate": "KCJ-010J", "capacity": 5, "category": "Off-Road SUV", "price_per_day": 75.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Hyundai Tucson", "number_plate": "KCK-011K", "capacity": 5, "category": "SUV", "price_per_day": 55.0, "image_url": "https://images.unsplash.com/photo-1609521263047-f8f205293f24"},
+                {"model": "Mazda CX-5", "number_plate": "KCL-012L", "capacity": 5, "category": "SUV", "price_per_day": 58.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Volkswagen Passat", "number_plate": "KCM-013M", "capacity": 5, "category": "Sedan", "price_per_day": 52.0, "image_url": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb"},
+                {"model": "Lexus RX 350", "number_plate": "KCN-014N", "capacity": 5, "category": "Luxury SUV", "price_per_day": 115.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Subaru Outback", "number_plate": "KCO-015O", "capacity": 5, "category": "Wagon", "price_per_day": 62.0, "image_url": "https://images.unsplash.com/photo-1609521263047-f8f205293f24"},
+                {"model": "Porsche 911", "number_plate": "KCP-016P", "capacity": 2, "category": "Sports", "price_per_day": 200.0, "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
+                {"model": "Range Rover Sport", "number_plate": "KCQ-017Q", "capacity": 5, "category": "Luxury SUV", "price_per_day": 150.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Kia Sportage", "number_plate": "KCR-018R", "capacity": 5, "category": "SUV", "price_per_day": 54.0, "image_url": "https://images.unsplash.com/photo-1609521263047-f8f205293f24"},
+                {"model": "Volvo XC90", "number_plate": "KCS-019S", "capacity": 7, "category": "Luxury SUV", "price_per_day": 125.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"},
+                {"model": "Acura MDX", "number_plate": "KCT-020T", "capacity": 7, "category": "SUV", "price_per_day": 80.0, "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"}
+            ]
+            cars_added = 0
+            for car_data in cars:
+                if not Car.query.filter_by(number_plate=car_data["number_plate"]).first():
+                    car = Car(**car_data)
+                    db.session.add(car)
+                    cars_added += 1
         
-        db.session.add(admin)
         db.session.commit()
         
         return jsonify({
-            'message': 'Admin user created successfully',
-            'username': 'admin',
-            'password': 'admin123',
-            'email': 'admin@urbanwheels.com'
+            'success': True,
+            'admin_created': admin_created,
+            'cars_added': cars_added,
+            'total_users': User.query.count(),
+            'total_cars': Car.query.count(),
+            'admin_credentials': {
+                'username': 'admin',
+                'password': 'admin',
+                'email': 'admin@gmail.com'
+            }
         })
     except Exception as e:
+        db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/health')
