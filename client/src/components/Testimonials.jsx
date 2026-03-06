@@ -1,67 +1,74 @@
-import React, { useRef, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-export default function Testimonials() {
+function Testimonials() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   const testimonials = [
-    { testimony: "Urban Wheels made my business trip stress-free. The booking was smooth, and the car was spotless.", image: "https://media.istockphoto.com/id/1312105172/photo/happy-african-man-looking-at-camera-indoors-at-home-focus-on-face.jpg?s=612x612&w=0&k=20&c=oFGfCkq-z0tDi-5LzRqF_nOEjWYP5h6ZTPTLMT7oUJk=", name: "Michael K" },
-    { testimony: "I loved the chauffeur service. Professional, on time, and super comfortable. Definitely using again!", image: "https://media.istockphoto.com/id/2167876122/photo/african-american-woman-smiling-confidently-outdoors-in-a-park-setting-on-a-sunny-day.jpg?s=612x612&w=0&k=20&c=nP7IbGBO8iZRy_lbGhi7yK2iowvh0d8Qc_IqH9ubmkY=", name: "Sarah M" },
-    { testimony: "The long-term rental was perfect for my stay in Nairobi. Flexible terms and great customer support.", image: "https://media.istockphoto.com/id/2226838709/photo/portrait-of-a-handsome-middle-aged-black-man.jpg?s=612x612&w=0&k=20&c=7vEVixvtgO1G5qYlJc6ANkIEjiTeyP0TzLrjizisEzw=", name: "Daniel W" },
-    { testimony: "I booked for my wedding day and the car was stunning. Everyone kept asking where I got it from.", image: "https://media.istockphoto.com/id/1389348844/photo/studio-shot-of-a-beautiful-young-woman-smiling-while-standing-against-a-grey-background.jpg?s=612x612&w=0&k=20&c=anRTfD_CkOxRdyFtvsiPopOluzKbhBNEQdh4okZImQc=", name: "Aisha L" },
-    { testimony: "I appreciated how quick the pick-up and return process was. Saved me so much time.", image: "https://media.istockphoto.com/id/1347495868/photo/smiling-african-american-man-wearing-glasses.jpg?s=612x612&w=0&k=20&c=QMCbWu-AOfLDkQMsX-qX2xHFZAL56tx_uVucZ5rBxv8=", name: "Brian O" },
-    { testimony: "Luxury cars at affordable rates? I was honestly impressed. The drive felt premium all through.", image: "https://media.istockphoto.com/id/2178340044/photo/portrait-of-confident-mid-adult-businesswoman.jpg?s=612x612&w=0&k=20&c=msARCeYdvd9cvduMwJUgT1fY6Rl7lG0NRxZ56fzdUFs=", name: "Emily R." },
-    { testimony: "I needed a one-way rental, and Urban Wheels handled it perfectly. Zero hassle.", image: "https://media.istockphoto.com/id/1289461335/photo/portrait-of-a-handsome-black-man.jpg?s=612x612&w=0&k=20&c=gDibbpmkeV04ta3ociwAgpqcjdeU5sI1nnd78wrnz-g=", name: "Peter N." },
-    { testimony: "The customer service team really stood out—friendly, responsive, and always ready to help.", image: "https://media.istockphoto.com/id/1353378620/photo/cheerful-african-woman-wearing-trendy-red-headscarf.jpg?s=612x612&w=0&k=20&c=G1uMb3xggrhK2AqXqsBJe-oL51eQDMlC7JLeS_6Yoqc=", name: "Grace T." },
-    { testimony: "I hired a driver for a corporate event, and it was the best decision. Smooth ride, classy experience.", image: "https://media.istockphoto.com/id/1178153005/photo/portrait-of-a-handsome-casual-businessman-wearing-black-eyeglasses-in-office-smiling.jpg?s=612x612&w=0&k=20&c=9dgLzQnifAyz7KKCGYqnqffcqm6cfGX0LkFXi1iwOVw=", name: "James K." },
-    { testimony: "Urban Wheels is my go-to for car rentals now. Reliable, trustworthy, and always exceeding expectations.", image: "https://media.istockphoto.com/id/2195534339/photo/smiling-afro-girl-in-eyeglasses-posing-over-grey-background.jpg?s=612x612&w=0&k=20&c=-Ap4orSGl_Qc0rTJj9_rYKiMKqPY_CYRRDaBW87atCM=", name: "Linda S." }
+    {
+      name: 'Sarah Wanjiru',
+      role: 'Business Traveler',
+      text: 'Urban Wheels made my business trip so easy! The booking process was seamless and the car was in perfect condition.',
+      rating: 5,
+      image: 'https://i.pravatar.cc/150?img=1'
+    },
+    {
+      name: 'Michael Omondi',
+      role: 'Family Vacation',
+      text: 'Rented an SUV for our family vacation. Great service, fair prices, and the pick-up was super convenient!',
+      rating: 5,
+      image: 'https://i.pravatar.cc/150?img=13'
+    },
+    {
+      name: 'Emily Naserian',
+      role: 'Weekend Getaway',
+      text: 'Best car rental experience ever! The staff was friendly and the car exceeded my expectations.',
+      rating: 5,
+      image: 'https://i.pravatar.cc/150?img=5'
+    }
   ];
 
-   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1, // ✅ Always one card
-    slidesToScroll: 1, // ✅ Scroll one at a time
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
-
   return (
-    <div className="bg-[#CAD5E2] py-16">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
-        What Our Clients Say
+    <div className="bg-[#0A0A0A] px-8 py-16">
+      <h2 className="text-4xl md:text-5xl font-bold text-center text-[#31C950] mb-4" data-aos="fade-up">
+        What Our Customers Say
       </h2>
-      <div className="max-w-3xl mx-auto px-6">
-        <Slider {...settings}>
-          {testimonials.map((t, i) => (
-            <div key={i} className="px-3">
-              <div className="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center relative">
-                {/* Quotation mark style */}
-                <span className="absolute top-4 left-4 text-5xl text-gray-200 font-serif">“</span>
-
-                {/* Testimonial text */}
-                <p className="text-gray-700 italic mb-6 leading-relaxed z-10">
-                  {t.testimony}
-                </p>
-
-                {/* User info */}
-                <div className="flex items-center gap-4 mt-4">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-[#05DF72] shadow"
-                  />
-                  <div className="text-left">
-                    <h3 className="font-semibold text-gray-900">{t.name}</h3>
-                    <p className="text-sm text-gray-500">Happy Customer</p>
-                  </div>
-                </div>
+      <p className="text-center text-gray-400 mb-12 text-lg" data-aos="fade-up">
+        Real experiences from real customers
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial, index) => (
+          <div
+            key={index}
+            className="bg-[#171717] p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow"
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+          >
+            <div className="flex items-center mb-4">
+              <img
+                src={testimonial.image}
+                alt={testimonial.name}
+                className="w-16 h-16 rounded-full mr-4"
+              />
+              <div>
+                <h3 className="text-xl font-bold text-white">{testimonial.name}</h3>
+                <p className="text-[#FFD230] text-sm">{testimonial.role}</p>
               </div>
             </div>
-          ))}
-        </Slider>
+            <div className="flex mb-3">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <span key={i} className="text-[#FFD230] text-xl">⭐</span>
+              ))}
+            </div>
+            <p className="text-gray-300 leading-relaxed">{testimonial.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
+export default Testimonials;
