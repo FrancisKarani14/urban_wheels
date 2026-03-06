@@ -9,21 +9,21 @@ function Testimonials() {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
+      name: 'Sarah Wanjiru',
       role: 'Business Traveler',
       text: 'Urban Wheels made my business trip so easy! The booking process was seamless and the car was in perfect condition.',
       rating: 5,
       image: 'https://i.pravatar.cc/150?img=1'
     },
     {
-      name: 'Michael Chen',
+      name: 'Michael Omondi',
       role: 'Family Vacation',
       text: 'Rented an SUV for our family vacation. Great service, fair prices, and the pick-up was super convenient!',
       rating: 5,
       image: 'https://i.pravatar.cc/150?img=13'
     },
     {
-      name: 'Emily Rodriguez',
+      name: 'Emily Naserian',
       role: 'Weekend Getaway',
       text: 'Best car rental experience ever! The staff was friendly and the car exceeded my expectations.',
       rating: 5,

@@ -20,7 +20,7 @@ import Notifications from "./pages/Dashboard/Notifications";
 
 function App() {
   return (
-    <div className="bg-[#292524] min-h-screen max-w-full overflow-x-hidden">
+    <div className="bg-black min-h-screen max-w-full overflow-x-hidden">
       <Routes>
         {/* --- Public Routes --- */}
         <Route path="/" element={<Landing />} />
