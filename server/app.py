@@ -76,6 +76,9 @@ def home():
 @app.route('/seed-database')
 def seed_database():
     try:
+        # Create tables if they don't exist
+        db.create_all()
+        
         # Check if admin already exists
         admin = User.query.filter_by(username='admin').first()
         if not admin:
